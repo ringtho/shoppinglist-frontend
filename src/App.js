@@ -1,12 +1,15 @@
 import React from 'react'
+import Home from './pages/Home/Home'
 
 function App () {
   return (
-    <div className="App">
+    <main>
       <header>
-        <h1>Shopping List</h1>
+        <Home />
       </header>
-    </div>
+      <section>
+      </section>
+    </main>
   )
 }
 
