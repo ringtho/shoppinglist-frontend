@@ -1,6 +1,6 @@
 /* eslint-enable */
 import React from 'react'
-// import  LoginSignup from'./Components/LoginSignup'
+import './LoginSignup.css'
 import usericon from '../Assets/person.png'
 import emailicon from '../Assets/email.png'
 import passwordicon from '../Assets/password.png'
@@ -15,15 +15,15 @@ const LoginSignup = () => {
       <div className='inputs'>
         <div className='input'>
           <img src={usericon} alt='' />
-          <input type='text' />
+          <input type='text' placeholder='Name' />
         </div>
         <div className='input'>
           <img src={emailicon} alt='' />
-          <input type='email' />
+          <input type='email'placeholder='Email' />
         </div>
         <div className='input'>
           <img src={passwordicon} alt='' />
-          <input type='password' />
+          <input type='password'placeholder='Password' />
         </div>
       </div>
       <div className='forgot-password'>
