@@ -1,4 +1,5 @@
 import React from 'react'
+import LoginSignup from './Components/LoginSignUp/LoginSignup'
 
 function App () {
   return (
@@ -6,6 +7,7 @@ function App () {
       <header>
         <h1>Shopping List</h1>
       </header>
+      <LoginSignup/>
     </div>
   )
 }
