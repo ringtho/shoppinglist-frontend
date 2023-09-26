@@ -1,0 +1,24 @@
+.item__container {
+    background-color: #fff;
+
+    &:hover {
+        // background-color: red;
+    }
+    
+}
+
+.item__text {
+    padding: 1rem 2rem;
+}
+
+.item__input {
+    width: 100%;
+    padding: 1rem 2rem;
+    font-size: 1rem;
+    font-family: 'Raleway', sans-serif;
+    outline: none;
+    border: none;
+    letter-spacing: 1px;
+    border-bottom: 1px solid var(--text-color);
+    caret-color: blue;
+}

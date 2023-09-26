@@ -1,0 +1,24 @@
+.items__container {
+    margin-top: 4rem;
+
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+
+    & li:nth-child(1) {
+        border-top-right-radius: 0.5rem;
+        border-top-left-radius: 0.5rem;
+    }
+
+    & li:nth-last-child(1) {
+        border-bottom-right-radius: 0.5rem;
+        border-bottom-left-radius: 0.5rem;
+    }
+
+    li {
+        list-style-type: none;
+    }
+}
+
+
+
