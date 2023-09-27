@@ -4,9 +4,9 @@ import LoginSignup from './Components/LoginSignUp/LoginSignup'
 function App () {
   return (
     <div className="App">
-      <header>
+      {/* <header>
         <h1>Shopping List</h1>
-      </header>
+      </header> */}
       <LoginSignup/>
     </div>
   )
