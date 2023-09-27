@@ -9,23 +9,43 @@
     
 }
 
-.item__text {
-    padding: 1rem 2rem;
+.item__wrapper, form {
+    display: flex;
+    align-items: center;
 }
 
-form {
-    display: flex;
+.circle__item {
+    width: 24px;
+    height: 24px;
+    border: 1px solid #E3E4F1;
+    border-radius: 50%;
+    margin: 0 1rem;
+    aspect-ratio: 1;
+
+    &:hover {
+        border: 2px solid hsl(280, 87%, 65%);
+    }
+}
+
+.item__text {
+    padding: 1rem 0;
+    width: 100%;
+    letter-spacing: 1px;
 }
 
 .item__input {
     width: 100%;
-    padding: 1rem 2rem;
+    padding: 1rem 0;
     font-size: 1rem;
     font-family: 'Raleway', sans-serif;
     outline: none;
     border: none;
     letter-spacing: 1px;
-    caret-color: blue;
+    caret-color: #3A7CFD;
+}
+
+.circle__fill {
+  background-image: linear-gradient( 45deg, hsl(192, 100%, 67%),hsl(280, 87%, 65%));
 }
 
 .item__controls {

@@ -5,6 +5,7 @@ import PropTypes from 'prop-types'
 const Item = ({ item: listItem, id, setList, list }) => {
   const [isEditMode, setIsEditMode] = useState(false)
   const [item, setItem] = useState(listItem)
+  const [isComplete, setIsComplete] = useState(false)
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -27,11 +28,17 @@ const Item = ({ item: listItem, id, setList, list }) => {
     <li className="item__container">
       {/* eslint-disable-next-line multiline-ternary */}
       {!isEditMode ? (
-        <p className="item__text" onClick={() => setIsEditMode(true)}>
-          {item}
-        </p>
+        <div className="item__wrapper">
+          <div className={isComplete ? 'circle__item circle__fill' : 'circle__item'}
+            onClick={() => setIsComplete(!isComplete)}
+          ></div>
+          <p className="item__text" onClick={() => setIsEditMode(true)}>
+            {item}
+          </p>
+        </div>
       ) : (
         <form onSubmit={handleSubmit}>
+          <div className="circle__item"></div>
           <input
             className="item__input"
             type="text"
