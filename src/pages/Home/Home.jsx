@@ -9,6 +9,8 @@ const Home = () => {
     JSON.parse(localStorage.getItem('shoppingList')) || []
   )
 
+  console.log(list)
+
   useEffect(() => {
     localStorage.setItem('shoppingList', JSON.stringify(list))
   }, [list])
@@ -18,10 +20,10 @@ const Home = () => {
       <div className="home__items">
         <ItemInput setList={setList} />
         <div className="home__controls home__items">
-          <h3>15 Items</h3>
+          <h3>{list.length} Items</h3>
           <p>Icons</p>
         </div>
-        <Items list={list} />
+        <Items list={list} setList={setList} />
       </div>
     </div>
   )

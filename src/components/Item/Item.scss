@@ -1,14 +1,20 @@
 .item__container {
     background-color: #fff;
 
-    &:hover {
-        // background-color: red;
+    &:hover,
+    &:focus {
+        box-shadow:0px 2px 10px rgba(0,0,0, 0.3);
+        cursor: pointer;
     }
     
 }
 
 .item__text {
     padding: 1rem 2rem;
+}
+
+form {
+    display: flex;
 }
 
 .item__input {
@@ -19,6 +25,26 @@
     outline: none;
     border: none;
     letter-spacing: 1px;
-    border-bottom: 1px solid var(--text-color);
     caret-color: blue;
+}
+
+.item__controls {
+    padding-right: 2rem;
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+
+    i {
+        font-size: large;
+    }
+}
+
+.icons__container {
+    padding: 0.6rem;
+    border-radius: 50%;
+
+    &:hover,
+    &:focus {
+        background-color: rgba(0,0,0,0.2);
+    }
 }
