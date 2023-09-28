@@ -5,7 +5,8 @@ import Items from '../../components/Items/Items'
 import './Home.scss'
 import AddItem from '../../components/AddItem/AddItem'
 import EditItem from '../../components/EditItem/EditItem'
-// import Todos from '../../components/comp/Comp'
+import DeleteItem from '../../components/DeleteItem/DeleteItem'
+import ItemDashboard from '../../components/ItemDashboard/ItemDashboard'
 
 const Home = () => {
   const [list, setList] = useState(
@@ -13,6 +14,7 @@ const Home = () => {
   )
   const [isAddItemActive, setIsAddItemActive] = useState(false)
   const [isEditItemActive, setIsEditItemActive] = useState(false)
+  const [isDeleteItemActive, setIsDeleteItemActive] = useState(false)
   const [itemId, setItemId] = useState([])
 
   useEffect(() => {
@@ -25,14 +27,12 @@ const Home = () => {
       <div className="home__items">
         <button onClick={() => setIsAddItemActive(true)}>Add Item</button>
         <ItemInput setList={setList} />
-        <div className="home__controls home__items">
-          <h3>{list.length} Items</h3>
-          <p>Icons</p>
-        </div>
+        <ItemDashboard list={list} setList={setList} />
         <Items
           list={list}
           setList={setList}
           setIsEditItemActive={setIsEditItemActive}
+          setIsDeleteItemActive={setIsDeleteItemActive}
           setItemId={setItemId}
         />
       </div>
@@ -40,7 +40,20 @@ const Home = () => {
         <AddItem setList={setList} setIsActive={setIsAddItemActive} />
       )}
       {isEditItemActive && (
-        <EditItem setList={setList} itemId={itemId} setIsActive={setIsEditItemActive} list={list} />
+        <EditItem
+          setList={setList}
+          itemId={itemId}
+          setIsActive={setIsEditItemActive}
+          list={list}
+        />
+      )}
+      {isDeleteItemActive && (
+        <DeleteItem
+          setIsActive={setIsDeleteItemActive}
+          list={list}
+          setList={setList}
+          id={itemId.id}
+        />
       )}
     </div>
   )

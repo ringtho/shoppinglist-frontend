@@ -9,3 +9,12 @@
     align-items: center;
     justify-content: space-between;
 }
+
+.sort__icon {
+    font-size: 2rem;
+
+    &:hover {
+        cursor: pointer;
+        color: #635FC7;
+    }
+}
