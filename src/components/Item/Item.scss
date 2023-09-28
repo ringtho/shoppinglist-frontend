@@ -23,14 +23,18 @@
     aspect-ratio: 1;
 
     &:hover {
-        border: 2px solid hsl(280, 87%, 65%);
+        border: 2px solid #635FC7;
     }
 }
 
 .item__text {
-    padding: 1rem 0;
     width: 100%;
     letter-spacing: 1px;
+}
+
+.item__text-wrapper {
+    width: 100%;
+    padding: 0.75rem 0;
 }
 
 .item__input {
@@ -72,4 +76,14 @@
     &:focus {
         background-color: rgba(0,0,0,0.1);
     }
+}
+
+
+.item__description {
+    font-size: 12px;
+    opacity: 0.7;
+}
+
+.item__quantity {
+    color: #635FC7;
 }
