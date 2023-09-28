@@ -76,8 +76,7 @@ const EditItem = ({ setList, setIsActive, itemId, list }) => {
             onChange={handleChange}
           />
         </div>
-        <div className="add__item-wrapper">
-          <label htmlFor="completed">Completed</label>
+        <div className="edit__item-wrapper">
           <input
             type="checkbox"
             id="completed"
@@ -85,6 +84,7 @@ const EditItem = ({ setList, setIsActive, itemId, list }) => {
             checked={item.completed}
             onChange={handleChange}
           />
+          <label htmlFor="completed">Completed</label>
         </div>
         <button onClick={() => setIsActive(false)}>Cancel</button>
         <button type="submit">Save Changes</button>

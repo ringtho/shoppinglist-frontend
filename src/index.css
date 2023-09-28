@@ -2,6 +2,7 @@
 
 :root {
   --text-color: #212121;
+  --primary-font: 'Raleway', sans-serif;
 }
 
 * {
@@ -11,7 +12,7 @@
 }
 
 body {
-  font-family: 'Raleway', sans-serif;
+  font-family: var(--primary-font);
   min-height: 100vh;
   color: var(--text-color);
   background-color: #F2F2F2;
