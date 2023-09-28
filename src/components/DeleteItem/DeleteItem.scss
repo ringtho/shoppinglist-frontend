@@ -7,4 +7,47 @@
     background-color: #FFFFFF;
     padding: 2rem 1rem;
     border-radius: 0.5rem;
+
+    @media screen and (min-width: 480px) {
+        padding: 2rem 1.5rem;
+    }
+
+    @media screen and (min-width: 720px) {
+        max-width: 480px;
+
+        h3 {
+            line-height: 25px;
+        }
+
+        p {
+            line-height: 25px;
+            margin-bottom: 2rem;
+            font-size: 1rem;
+        }
+    }
+
+    h3 {
+        color: #EA5555;
+        font-weight: 600;
+    }
 }
+
+.button-delete {
+    background-color: #EA5555;
+
+    &:hover,
+    &:focus {
+        background-color: #FF9898;
+    }
+}
+
+.button-cancel {
+    background: rgba(99, 95, 199, 0.10);
+    color: #635FC7;
+
+    &:hover,
+    &:focus {
+        background: rgba(99, 95, 199, 0.25);
+    }
+}
+

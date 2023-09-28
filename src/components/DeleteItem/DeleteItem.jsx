@@ -13,9 +13,9 @@ const DeleteItem = ({ setIsActive, list, setList, id }) => {
     <div className="add__item">
       <div className="delete__item">
         <h3>Delete Item</h3>
-        <p>Are you sure you want to delete this item?</p>
-        <button onClick={() => setIsActive(false)}>Cancel</button>
-        <button onClick={handleDelete}>Delete</button>
+        <p>Are you sure you want to delete this item? This action cannot be reversed</p>
+        <button onClick={() => setIsActive(false)} className='button-cancel'>Cancel</button>
+        <button onClick={handleDelete} className='button-delete'>Delete</button>
       </div>
     </div>
   )

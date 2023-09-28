@@ -86,7 +86,7 @@ const EditItem = ({ setList, setIsActive, itemId, list }) => {
           />
           <label htmlFor="completed">Completed</label>
         </div>
-        <button onClick={() => setIsActive(false)}>Cancel</button>
+        <button onClick={() => setIsActive(false)} className='button-cancel'>Cancel</button>
         <button type="submit">Save Changes</button>
       </form>
     </div>

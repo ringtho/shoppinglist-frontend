@@ -1,6 +1,38 @@
 .home__items{
     padding: 0 1rem;
     position: relative;
+
+    @media screen and (min-width: 720px) {
+        padding: 0 2rem;
+    }
+
+    @media screen and (min-width: 1020px) {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content:center;
+
+        & > * {
+            max-width: 900px;
+            width: 100%;
+        }
+
+        .home__controls {
+            flex-direction: row;
+            justify-content: space-between;
+
+            h3 {
+                width: 100%;
+                margin-right: auto;
+            }
+
+            .sort__icon {
+                display: flex;
+                justify-content: flex-end;
+            }
+        }
+    }
 }
 
 .home__controls{
@@ -17,4 +49,21 @@
         cursor: pointer;
         color: #635FC7;
     }
+}
+
+.add__item-button {
+    background-color: #635FC7;
+    color: #FFFFFF;
+    padding: 1rem 2rem;
+    margin-top: 2rem;
+
+    @media screen and (min-width: 1020px) {
+        padding: 1.25rem 3rem;
+    }
+}
+
+button {
+    font-family: var(--primary-font);
+    letter-spacing: 1px;
+    font-weight: 500;
 }

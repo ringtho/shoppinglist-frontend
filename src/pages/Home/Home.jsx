@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import Navbar from '../../components/Navbar/Navbar'
-import ItemInput from '../../components/ItemInput/ItemInput'
+// import ItemInput from '../../components/ItemInput/ItemInput'
 import Items from '../../components/Items/Items'
 import './Home.scss'
 import AddItem from '../../components/AddItem/AddItem'
@@ -10,7 +10,8 @@ import ItemDashboard from '../../components/ItemDashboard/ItemDashboard'
 
 const Home = () => {
   const [list, setList] = useState(
-    JSON.parse(localStorage.getItem('shoppingList')) || []
+    JSON.parse(localStorage.getItem('shoppingList'))
+      .sort((a, b) => a.completed - b.completed) || []
   )
   const [isAddItemActive, setIsAddItemActive] = useState(false)
   const [isEditItemActive, setIsEditItemActive] = useState(false)
@@ -22,11 +23,14 @@ const Home = () => {
   }, [list])
 
   return (
-    <div>
+    <div className='main-container'>
       <Navbar />
       <div className="home__items">
-        <button onClick={() => setIsAddItemActive(true)}>Add Item</button>
-        <ItemInput setList={setList} />
+        <button
+          onClick={() => setIsAddItemActive(true)}
+          className='add__item-button'
+        >Add Item</button>
+        {/* <ItemInput setList={setList} /> */}
         <ItemDashboard list={list} setList={setList} />
         <Items
           list={list}

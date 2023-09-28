@@ -47,6 +47,7 @@ const AddItem = ({ setList, setIsActive }) => {
             name="name"
             value={item.name}
             onChange={handleChange}
+            placeholder='e.g Oreos'
           />
         </div>
         <div className="add__item-wrapper">
@@ -58,6 +59,7 @@ const AddItem = ({ setList, setIsActive }) => {
             name="quantity"
             value={item.quantity}
             onChange={handleChange}
+            placeholder='eg 2'
           />
         </div>
         <div className="add__item-wrapper">
@@ -68,9 +70,10 @@ const AddItem = ({ setList, setIsActive }) => {
             name="description"
             value={item.description}
             onChange={handleChange}
+            placeholder='eg For Smith and Ethan'
           />
         </div>
-        <button onClick={() => setIsActive(false)}>Cancel</button>
+        <button onClick={() => setIsActive(false)} className='button-cancel'>Cancel</button>
         <button type="submit">Add Item</button>
       </form>
     </div>
