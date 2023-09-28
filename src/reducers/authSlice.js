@@ -5,14 +5,13 @@ import { registerUser,userLogin } from "../auth/authActions"
 const userToken = localStorage.getItem('userToken')
 ? localStorage.getItem('userToken') : null
 
+
 const initialState = {
     loading: false,
-    userInfo:null,
-    userToken,
-    error:null,
-    success:false,
-}
-
+    isAuthenticated: false,
+    user: {},
+    error: null,
+  };
 const authSlice = createSlice({
     name: 'user',
     initialState,
