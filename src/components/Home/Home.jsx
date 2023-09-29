@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react'
-import Navbar from '../../components/Navbar/Navbar'
+import Navbar from '../Navbar/Navbar'
 // import ItemInput from '../../components/ItemInput/ItemInput'
-import Items from '../../components/Items/Items'
+import Items from '../Items/Items'
 import './Home.scss'
-import AddItem from '../../components/AddItem/AddItem'
-import EditItem from '../../components/EditItem/EditItem'
-import DeleteItem from '../../components/DeleteItem/DeleteItem'
-import ItemDashboard from '../../components/ItemDashboard/ItemDashboard'
+import AddItem from '../AddItem/AddItem'
+import EditItem from '../EditItem/EditItem'
+import DeleteItem from '../DeleteItem/DeleteItem'
+import ItemDashboard from '../ItemDashboard/ItemDashboard'
 
 const Home = () => {
   const [list, setList] = useState(

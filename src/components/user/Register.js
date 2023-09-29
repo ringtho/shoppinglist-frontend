@@ -1,19 +1,16 @@
-import React, { Fragment, useState, useEffect } from "react";
-
-// import { useAlert } from "react-alert";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { register, clearErrors } from "../../actions/userActions";
+import { register } from "../../actions/authActions";
 
 const Register = ({ history }) => {
   const [user, setUser] = useState({
-    name: "",
+    first_name: "",
+    last_name: "",
     email: "",
     password: "",
   });
 
-  const { name, email, password } = user;
-
-//   const alert = useAlert();
+  const { first_name, last_name, email, password } = user;
   const dispatch = useDispatch();
 
   const { isAuthenticated, error, loading } = useSelector(
@@ -25,21 +22,17 @@ const Register = ({ history }) => {
       history.push("/");
     }
 
+    // Handle errors using Redux actions
     if (error) {
-    //  error(error);
-      dispatch(clearErrors());
+      // You can dispatch an action to clear errors if needed.
     }
-  }, [dispatch,  isAuthenticated, error, history]);
+  }, [dispatch, isAuthenticated, error, history]);
 
   const submitHandler = (e) => {
     e.preventDefault();
 
-    const formData = new FormData();
-    formData.set("name", name);
-    formData.set("email", email);
-    formData.set("password", password);
-
-    dispatch(register(formData));
+    // Dispatch the registration action with the user data
+    dispatch(register(user));
   };
 
   const onChange = (e) => {
@@ -49,21 +42,29 @@ const Register = ({ history }) => {
   return (
     <div className="row wrapper">
       <div className="col-10 col-lg-5">
-        <form
-          className="shadow-lg"
-          onSubmit={submitHandler}
-          encType="multipart/form-data"
-        >
+        <form className="shadow-lg" onSubmit={submitHandler}>
           <h1 className="mb-3">Register</h1>
 
           <div className="form-group">
-            <label htmlFor="email_field">Name</label>
+            <label htmlFor="first_name_field">First Name</label>
             <input
-              type="name"
-              id="name_field"
+              type="text"
+              id="first_name_field"
               className="form-control"
-              name="name"
-              value={name}
+              name="first_name"
+              value={first_name}
+              onChange={onChange}
+            />
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="last_name_field">Last Name</label>
+            <input
+              type="text"
+              id="last_name_field"
+              className="form-control"
+              name="last_name"
+              value={last_name}
               onChange={onChange}
             />
           </div>
