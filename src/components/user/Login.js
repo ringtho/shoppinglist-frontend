@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import { login } from "../../actions/authActions";
 
 const Login = ({ history, location }) => {
@@ -11,13 +12,13 @@ const Login = ({ history, location }) => {
   const error = useSelector((state) => state.auth.error);
   const dispatch = useDispatch(); 
 
-  const redirect = location.search ? location.search.split("=")[1] : "/";
+  // const redirect = location.search ? location.search.split("=")[1] : "/";
 
   useEffect(() => {
     if (isAuthenticated) {
       history.push(redirect);
     }
-  }, [isAuthenticated, history, redirect]);
+  }, [isAuthenticated, history]);
 
   const submitHandler = (e) => {
     e.preventDefault();

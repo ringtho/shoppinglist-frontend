@@ -10,8 +10,7 @@ import ItemDashboard from '../ItemDashboard/ItemDashboard'
 
 const Home = () => {
   const [list, setList] = useState(
-    JSON.parse(localStorage.getItem('shoppingList'))
-      .sort((a, b) => a.completed - b.completed) || []
+    JSON.parse(localStorage.getItem('shoppingList')) || []
   )
   const [isAddItemActive, setIsAddItemActive] = useState(false)
   const [isEditItemActive, setIsEditItemActive] = useState(false)
