@@ -34,7 +34,7 @@ const AddItem = ({ setList, setIsActive }) => {
 
   return (
     <div className="add__item">
-      <form className="add__form" onSubmit={handleSubmit}>
+      <form className="add__form">
         <h3>Add Item</h3>
         <div className="add__item-wrapper">
           <label htmlFor="name">Item</label>
@@ -44,7 +44,7 @@ const AddItem = ({ setList, setIsActive }) => {
             name="item"
             value={item.item}
             onChange={handleChange}
-            placeholder='e.g Oreos'
+            placeholder="e.g Oreos"
           />
         </div>
         <div className="add__item-wrapper">
@@ -56,7 +56,7 @@ const AddItem = ({ setList, setIsActive }) => {
             name="quantity"
             value={item.quantity}
             onChange={handleChange}
-            placeholder='eg 2'
+            placeholder="eg 2"
           />
         </div>
         <div className="add__item-wrapper">
@@ -67,11 +67,15 @@ const AddItem = ({ setList, setIsActive }) => {
             name="notes"
             value={item.notes}
             onChange={handleChange}
-            placeholder='eg For Smith and Ethan'
+            placeholder="eg For Smith and Ethan"
           />
         </div>
-        <button onClick={() => setIsActive(false)} className='button-cancel'>Cancel</button>
-        <button type="submit">Add Item</button>
+        <button onClick={() => setIsActive(false)} className="button-cancel">
+          Cancel
+        </button>
+        <button type="button" onClick={handleSubmit}>
+          Add Item
+        </button>
       </form>
     </div>
   )
