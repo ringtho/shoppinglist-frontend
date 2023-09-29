@@ -5,7 +5,7 @@ import {
 
 } from "react-router-dom"
 import { useDispatch, useSelector } from "react-redux";
-import Login from "./components/user/Login"
+import Login from './components/user/Login'
 import Register from './components/user/Register'
 import Home from './components/Home/Home'
 function App() {
@@ -16,10 +16,10 @@ function App() {
     <Router>
     
       <main className="container content">
-        <Routes>
-          <Route path="/" component={Home} />
-          <Route path="/login" component={Login} />
-          <Route path="/register" component={Register} />
+        <Routes>         
+          <Route path="/" element={<Login/>} />
+          <Route path="/home" element={<Home/>} />
+          <Route path="/register" element={<Register/>} />
         </Routes>
       </main>
     </Router>
