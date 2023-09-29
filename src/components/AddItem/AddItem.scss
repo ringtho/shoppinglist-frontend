@@ -69,6 +69,10 @@
             font-weight: 500;
 
             caret-color: #3A7CFD; 
+
+            &:focus {
+                border: 1px solid #3A7CFD;
+            }
         }
 
         

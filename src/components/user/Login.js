@@ -9,9 +9,7 @@ import { loginData } from "../../api";
 const Login = ({ history, location }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [jwtToken, setJwtToken] = useState(null)
   
-
   // Use Redux for isAuthenticated and error
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const error = useSelector((state) => state.auth.error);
@@ -20,11 +18,6 @@ const Login = ({ history, location }) => {
   const navigate = useNavigate()
 
   // const redirect = location.search ? location.search.split("=")[1] : "/";
-
-  useEffect(()=> {
-    const jwtCookie = Cookies.get('jwt')
-    setJwtToken(jwtCookie)
-  },[])
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -37,6 +30,7 @@ const Login = ({ history, location }) => {
     e.preventDefault();
     try {
       const res = await loginData({email, password});
+      localStorage.setItem('shoppingToken', res.data.token)
       console.log(res)
       navigate('/home')
     } catch (error) {
