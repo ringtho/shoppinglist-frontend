@@ -10,6 +10,7 @@ import Home from './components/Home/Home'
 import React from "react";
 // import ReactDOM from "react-dom/client";
 function App() {
+  console.log(process.env.REACT_APP_SECRET)
   return (
     <Router>
     

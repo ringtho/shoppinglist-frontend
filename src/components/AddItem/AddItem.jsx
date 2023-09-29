@@ -2,15 +2,18 @@ import React, { useState } from 'react'
 import './AddItem.scss'
 import { nanoid } from 'nanoid'
 import PropTypes from 'prop-types'
+import { addItem } from '../../actions/authActions'
+import { useDispatch } from 'react-redux'
 
 const AddItem = ({ setList, setIsActive }) => {
   const [item, setItem] = useState({
-    id: nanoid(),
-    name: '',
+    item: '',
     quantity: 0,
-    description: '',
-    completed: false
+    notes: '',
+    is_completed: false
   })
+
+  const dispatch = useDispatch()
 
   const handleChange = (e) => {
     const itemName = e.target.name
@@ -22,16 +25,17 @@ const AddItem = ({ setList, setIsActive }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    setList(prev => (
-      [item, ...prev]
-    ))
-    setItem({
-      id: nanoid(),
-      name: '',
-      quantity: 0,
-      description: '',
-      completed: false
-    })
+    // setList(prev => (
+    //   [item, ...prev]
+    // ))
+    // setItem({
+    //   id: nanoid(),
+    //   name: '',
+    //   quantity: 0,
+    //   description: '',
+    //   completed: false
+    // })
+    dispatch(addItem(item))
     setIsActive(false)
   }
 
@@ -43,9 +47,9 @@ const AddItem = ({ setList, setIsActive }) => {
           <label htmlFor="name">Item</label>
           <input
             type="text"
-            id="name"
-            name="name"
-            value={item.name}
+            id="item"
+            name="item"
+            value={item.item}
             onChange={handleChange}
             placeholder='e.g Oreos'
           />
@@ -66,9 +70,9 @@ const AddItem = ({ setList, setIsActive }) => {
           <label htmlFor="description">Description</label>
           <input
             type="text"
-            id="description"
-            name="description"
-            value={item.description}
+            id="notes"
+            name="notes"
+            value={item.notes}
             onChange={handleChange}
             placeholder='eg For Smith and Ethan'
           />
