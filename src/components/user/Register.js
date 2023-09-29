@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { register } from "../../actions/authActions";
-import { Link } from "react-router-dom";
+// import { register } from "../../actions/authActions";
+import { Link, useNavigate } from "react-router-dom";
+import { register } from "../../api";
+import axios from "axios";
 
 const Register = ({ history }) => {
   const [user, setUser] = useState({
@@ -10,6 +12,7 @@ const Register = ({ history }) => {
     email: "",
     password: "",
   });
+  const navigate = useNavigate()
 
   const { first_name, last_name, email, password } = user;
   const dispatch = useDispatch();
@@ -29,11 +32,17 @@ const Register = ({ history }) => {
     }
   }, [dispatch, isAuthenticated, error, history]);
 
-  const submitHandler = (e) => {
+  const submitHandler = async (e) => {
     e.preventDefault();
+    try {
+      const res = await register(user)
+      console.log(res)
+      navigate('/')
+    } catch (error) {
+      console.log(error)
+    }
 
     // Dispatch the registration action with the user data
-    dispatch(register(user));
   };
 
   const onChange = (e) => {

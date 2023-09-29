@@ -4,7 +4,6 @@ import PropTypes from 'prop-types'
 // import { addItem } from '../../actions/authActions'
 import { addItem } from '../../api'
 import { useDispatch } from 'react-redux'
-import { json } from 'react-router-dom'
 
 const AddItem = ({ setList, setIsActive }) => {
   const [item, setItem] = useState({
@@ -35,12 +34,13 @@ const AddItem = ({ setList, setIsActive }) => {
     e.preventDefault()
 
     try {
-      const res = await addItem({item})
+      const res = await addItem(item)
+      console.log(res)
     } catch (error) {
       console.log(error)
+    } finally {
+      setIsActive(false)
     }
-
-    setIsActive(false)
   }
 
   return (

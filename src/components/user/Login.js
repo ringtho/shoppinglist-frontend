@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { login } from "../../actions/authActions";
 import { useNavigate } from 'react-router-dom'
 import Cookies from 'js-cookie'
 import './Login.scss'
@@ -25,7 +24,6 @@ const Login = ({ history, location }) => {
   useEffect(()=> {
     const jwtCookie = Cookies.get('jwt')
     setJwtToken(jwtCookie)
-    console.log(jwtCookie)
   },[])
 
   useEffect(() => {
@@ -39,11 +37,8 @@ const Login = ({ history, location }) => {
     e.preventDefault();
     try {
       const res = await loginData({email, password});
-      localStorage.setItem('shoppingToken', res.data.token)
-      const jwt = res.data.token
-      document.cookie = `jwt=${jwt}`
-      navigate('/')
-      // navigate('/')
+      console.log(res)
+      navigate('/home')
     } catch (error) {
       console.log(error)
     }
