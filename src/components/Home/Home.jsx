@@ -7,19 +7,32 @@ import AddItem from '../AddItem/AddItem'
 import EditItem from '../EditItem/EditItem'
 import DeleteItem from '../DeleteItem/DeleteItem'
 import ItemDashboard from '../ItemDashboard/ItemDashboard'
+import { getItems } from '../../api'
 
 const Home = () => {
-  const [list, setList] = useState(
-    JSON.parse(localStorage.getItem('shoppingList')) || []
-  )
   const [isAddItemActive, setIsAddItemActive] = useState(false)
   const [isEditItemActive, setIsEditItemActive] = useState(false)
   const [isDeleteItemActive, setIsDeleteItemActive] = useState(false)
   const [itemId, setItemId] = useState([])
 
+  const [items, setItems] = useState([])
+
   useEffect(() => {
-    localStorage.setItem('shoppingList', JSON.stringify(list))
-  }, [list])
+    const getItemsList = async () => {
+      try {
+        const itemsList = await getItems()
+          .then((items) => setItems(items))
+        return itemsList
+      } catch (error) {
+        console.log(error)
+      }
+    }
+    getItemsList()
+  }, [])
+
+  useEffect(() => {
+
+  }, [items])
 
   return (
     <div className='main-container'>
@@ -30,32 +43,27 @@ const Home = () => {
           className='add__item-button'
         >Add Item</button>
         {/* <ItemInput setList={setList} /> */}
-        <ItemDashboard list={list} setList={setList} />
+        <ItemDashboard items={items} />
         <Items
-          list={list}
-          setList={setList}
+          items={items}
           setIsEditItemActive={setIsEditItemActive}
           setIsDeleteItemActive={setIsDeleteItemActive}
           setItemId={setItemId}
         />
       </div>
       {isAddItemActive && (
-        <AddItem setList={setList} setIsActive={setIsAddItemActive} />
+        <AddItem setIsActive={setIsAddItemActive} />
       )}
       {isEditItemActive && (
         <EditItem
-          setList={setList}
           itemId={itemId}
           setIsActive={setIsEditItemActive}
-          list={list}
         />
       )}
       {isDeleteItemActive && (
         <DeleteItem
           setIsActive={setIsDeleteItemActive}
-          list={list}
-          setList={setList}
-          id={itemId.id}
+          item={itemId}
         />
       )}
     </div>

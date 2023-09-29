@@ -1,57 +1,49 @@
 import React, { useState } from 'react'
 import './EditItem.scss'
 import PropTypes from 'prop-types'
+import { editItem } from '../../api'
 
-const EditItem = ({ setList, setIsActive, itemId, list }) => {
-  const { id, name, quantity, description, completed } = itemId
-  const [item, setItem] = useState({
+const EditItem = ({ setList, setIsActive, itemId }) => {
+  const { id, item, quantity, notes, is_completed } = itemId
+  const [newItem, setNewItem] = useState({
     id,
-    name,
+    item,
     quantity,
-    description,
-    completed
+    notes,
+    is_completed
   })
 
   const handleChange = (e) => {
     const itemName = e.target.name
     const value = e.target.value
     const checked = e.target.checked
-    setItem((prev) => {
+    setNewItem((prev) => {
       return { ...prev, [itemName]: e.target.id === 'completed' ? checked : value }
     })
   }
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    const updatedList = list.map((oldItem) => {
-      if (oldItem.id === id) {
-        return {
-          ...oldItem,
-          name: item.name,
-          quantity: item.quantity,
-          description: item.description,
-          completed: item.completed
-        }
-      }
-      return oldItem
-    })
-    setList(updatedList)
-    setIsActive(false)
+  const handleSubmit = async () => {
+    try {
+      const res = await editItem(newItem)
+      console.log(res)
+    } catch (error) {
+      console.log(error)
+    } finally {
+      setIsActive(false)
+    }
   }
-
-  console.log(itemId)
 
   return (
     <div className="add__item">
       <form className="add__form" onSubmit={handleSubmit}>
         <h3>Edit Item</h3>
         <div className="add__item-wrapper">
-          <label htmlFor="name">Item</label>
+          <label htmlFor="item">Item</label>
           <input
             type="text"
-            id="name"
-            name="name"
-            value={item.name}
+            id="item"
+            name="item"
+            value={newItem.item}
             onChange={handleChange}
           />
         </div>
@@ -62,17 +54,17 @@ const EditItem = ({ setList, setIsActive, itemId, list }) => {
             min={0}
             id="quantity"
             name="quantity"
-            value={item.quantity}
+            value={newItem.quantity}
             onChange={handleChange}
           />
         </div>
         <div className="add__item-wrapper">
-          <label htmlFor="description">Description</label>
+          <label htmlFor="notes">Description</label>
           <input
             type="text"
-            id="description"
-            name="description"
-            value={item.description}
+            id="notes"
+            name="notes"
+            value={newItem.notes}
             onChange={handleChange}
           />
         </div>
@@ -80,8 +72,8 @@ const EditItem = ({ setList, setIsActive, itemId, list }) => {
           <input
             type="checkbox"
             id="completed"
-            name="completed"
-            checked={item.completed}
+            name="is_completed"
+            checked={newItem.is_completed}
             onChange={handleChange}
           />
           <label htmlFor="completed">Completed</label>
@@ -94,10 +86,8 @@ const EditItem = ({ setList, setIsActive, itemId, list }) => {
 }
 
 EditItem.propTypes = {
-  setList: PropTypes.func,
   setIsActive: PropTypes.func,
-  itemId: PropTypes.object,
-  list: PropTypes.array
+  itemId: PropTypes.object
 }
 
 export default EditItem

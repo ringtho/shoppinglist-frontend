@@ -13,11 +13,6 @@ const AddItem = ({ setList, setIsActive }) => {
     is_completed: false
   })
 
-  const [jwt, setJwt] = useState('')
-
-
-  const dispatch = useDispatch()
-
   const handleChange = (e) => {
     const itemName = e.target.name
     const value = e.target.value
@@ -26,13 +21,7 @@ const AddItem = ({ setList, setIsActive }) => {
     })
   }
 
-  useEffect(() => {
-    setJwt(localStorage.getItem('shoppingToken'))
-  }, [])
-
-  const handleSubmit = async (e) => {
-    e.preventDefault()
-
+  const handleSubmit = async () => {
     try {
       const res = await addItem(item)
       console.log(res)

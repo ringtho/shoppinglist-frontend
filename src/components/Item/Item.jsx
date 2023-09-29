@@ -1,40 +1,62 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import './Item.scss'
 import PropTypes from 'prop-types'
+import { editItem } from '../../api'
 
 const Item = (props) => {
   const {
-    name, id, quantity, description, completed, setIsEditItemActive, setItemId, setIsDeleteItemActive, setList, list
+    item, id, quantity, notes, is_completed, setIsEditItemActive, setItemId, setIsDeleteItemActive,
   } = props
-  const [isComplete, setIsComplete] = useState(completed)
+  const [isComplete, setIsComplete] = useState(is_completed)
   const [isActive, setIsActive] = useState(false)
 
   const handleEditClick = () => {
-    setItemId({ id, name, quantity, description, completed })
+    setItemId({ id, item, quantity, notes, is_completed })
     setIsEditItemActive(true)
   }
 
   const handleDeleteClick = () => {
-    setItemId({ id, name, quantity, description, completed })
+    setItemId({ id, item, quantity, notes, is_completed })
     setIsDeleteItemActive(true)
   }
 
-  const handleIsComplete = () => {
-    const updatedList = list.map((item) => {
-      if (item.id === id) {
-        return { ...item, completed: !completed }
+  useEffect(() => {
+    console.log(is_completed)
+    console.log({ id, item, quantity, notes, is_completed: isComplete })
+    console.log(isComplete)
+    const editComplete = async () => {
+      try {
+        const res = await editItem({
+          id,
+          item,
+          quantity,
+          notes,
+          is_completed: isComplete,
+        })
+        // setIsComplete((prev) => !prev)
+      } catch (error) {
+        console.log(error)
       }
-      return item
-    })
-    setList(updatedList)
-    setIsComplete(!isComplete)
+    }
+
+    editComplete()
+    
+
+  }, [isComplete])
+
+  const handleIsComplete = async () => {
+    // console.log(is_completed)
+    setIsComplete(prev => !prev)
+    // console.log({ id, item, quantity, notes, is_completed: isComplete })
+    // e.preventDefault()
+    
   }
 
   return (
     <li className="item__container">
       <div
         className={
-          !completed ? 'item__wrapper' : 'item__wrapper filled__complete'
+          !is_completed ? 'item__wrapper' : 'item__wrapper filled__complete'
         }
         onMouseEnter={() => setIsActive(true)}
         onMouseLeave={() => setIsActive(false)}
@@ -43,13 +65,13 @@ const Item = (props) => {
           className={isComplete ? 'circle__item circle__fill' : 'circle__item'}
           onClick={handleIsComplete}
         >
-          {completed && <i className="fa fa-check icon-white" aria-hidden="true"></i>}
+          {isComplete && <i className="fa fa-check icon-white" aria-hidden="true"></i>}
         </div>
         <div className="item__text-wrapper">
           <p className="item__text">
-            {name} <span className="item__quantity">({quantity})</span>
+            {item} <span className="item__quantity">({quantity})</span>
           </p>
-          <span className="item__description">{description}</span>
+          <span className="item__description">{notes}</span>
         </div>
         {isActive && (
           <span className="item__controls">
@@ -67,13 +89,11 @@ const Item = (props) => {
 }
 
 Item.propTypes = {
-  setList: PropTypes.func,
-  id: PropTypes.string,
-  list: PropTypes.array,
-  name: PropTypes.string,
+  id: PropTypes.number,
+  title: PropTypes.array,
   description: PropTypes.string,
-  quantity: PropTypes.string,
-  completed: PropTypes.bool,
+  quantity: PropTypes.number,
+  is_completed: PropTypes.bool,
   setIsEditItemActive: PropTypes.func,
   setIsDeleteItemActive: PropTypes.func,
   setItemId: PropTypes.func

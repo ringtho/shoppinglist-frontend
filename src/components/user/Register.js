@@ -113,7 +113,7 @@ const Register = ({ history }) => {
         >
           REGISTER
         </button>
-        <Link to="/login" className="float-right mt-3">
+        <Link to="/" className="float-right mt-3">
           Already a member? Login
         </Link>
       </form>
