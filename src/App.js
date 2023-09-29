@@ -16,8 +16,8 @@ function App() {
     
       <main className="container content">
         <Routes> 
-         <Route path="/" element={<Home/>} />        
-          <Route path="/login" element={<Login/>} />          
+         <Route path="/login" element={<Login />} />        
+          <Route path="/" element={<Home />} />          
           <Route path="/register" element={<Register/>} />
         </Routes>
       </main>

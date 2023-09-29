@@ -6,7 +6,7 @@ const initialState = {
   loading: false,
   user: null,
   error: null,
-  // token,
+  token: null,
   success: false,
 }
 
@@ -19,11 +19,11 @@ const authSlice = createSlice({
       state.loading = false
       state.user = null
       state.error = null
-      // state.token = null
+      state.token = null
     },
     setCredentials: (state, { payload }) => {
       state.user = payload
-      // state.token = null
+      state.token = null
     },
   },
   extraReducers: {
@@ -35,7 +35,7 @@ const authSlice = createSlice({
     [login.fulfilled]: (state, { payload }) => {
       state.loading = false
       state.user = payload
-      // state.token = payload.token
+      state.token = payload.token
       
     },
     [login.rejected]: (state, { payload }) => {

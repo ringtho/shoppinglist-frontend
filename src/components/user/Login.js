@@ -5,6 +5,7 @@ import { login } from "../../actions/authActions";
 import { useNavigate } from 'react-router-dom'
 import Cookies from 'js-cookie'
 import './Login.scss'
+import { loginData } from "../../api";
 
 const Login = ({ history, location }) => {
   const [email, setEmail] = useState("");
@@ -37,13 +38,12 @@ const Login = ({ history, location }) => {
   const submitHandler = async (e) => {
     e.preventDefault();
     try {
-      const data = await dispatch(login({email, password}));
-      console.log(data)
-      // setJwtToken(Cookies.get('jwt'))
-      // console.log(Cookies.get('jwt'))
+      const res = await loginData({email, password});
+      localStorage.setItem('shoppingToken', res.data.token)
+      navigate('/')
       // navigate('/')
     } catch (error) {
-
+      console.log(error)
     }
     
   };

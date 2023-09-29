@@ -1,9 +1,10 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import './AddItem.scss'
-import { nanoid } from 'nanoid'
 import PropTypes from 'prop-types'
-import { addItem } from '../../actions/authActions'
+// import { addItem } from '../../actions/authActions'
+import { addItem } from '../../api'
 import { useDispatch } from 'react-redux'
+import { json } from 'react-router-dom'
 
 const AddItem = ({ setList, setIsActive }) => {
   const [item, setItem] = useState({
@@ -12,6 +13,9 @@ const AddItem = ({ setList, setIsActive }) => {
     notes: '',
     is_completed: false
   })
+
+  const [jwt, setJwt] = useState('')
+
 
   const dispatch = useDispatch()
 
@@ -23,19 +27,19 @@ const AddItem = ({ setList, setIsActive }) => {
     })
   }
 
-  const handleSubmit = (e) => {
+  useEffect(() => {
+    setJwt(localStorage.getItem('shoppingToken'))
+  }, [])
+
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    // setList(prev => (
-    //   [item, ...prev]
-    // ))
-    // setItem({
-    //   id: nanoid(),
-    //   name: '',
-    //   quantity: 0,
-    //   description: '',
-    //   completed: false
-    // })
-    dispatch(addItem(item))
+
+    try {
+      const res = await addItem({item, jwt})
+    } catch (error) {
+      console.log(error)
+    }
+
     setIsActive(false)
   }
 

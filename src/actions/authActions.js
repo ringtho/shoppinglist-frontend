@@ -3,22 +3,22 @@ import { createAsyncThunk } from '@reduxjs/toolkit'
 
 
 const API_BASE_URL = process.env.REACT_APP_DJANGO_API_URL;
-console.log(API_BASE_URL)
 
 export const login = createAsyncThunk("/login", async ({email, password}) => {
     try {
       const config = {
         headers: {
-          "Content-Type": "application/json",
+          "Content-Type": "application/json"
         },
       };
   
       const data = await axios.post(`${API_BASE_URL}/login/`, {email, password}, config);
-      console.log(data)
+
   
       localStorage.setItem("userId", data.user.id);
       localStorage.setItem("userName", data.user.name);
       localStorage.setItem('userName', data.user.token)
+      console.log(data)
       return data;
     } catch (error) {
       throw error.response.data.message;
@@ -50,7 +50,7 @@ export const register = createAsyncThunk("/register", async (userData, {rejectWi
         const config = {
           headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer `
+            'Authorization': '',
           },
         }
 
