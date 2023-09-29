@@ -41,7 +41,7 @@ const Register = ({ history }) => {
   };
 
   return (
-    <div className="container">
+    <div className="auth_container">
       <form className="shadow-lg" onSubmit={submitHandler}>
         <h2 className="mb-3">Shopping List Register</h2>
 

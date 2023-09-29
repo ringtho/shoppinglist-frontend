@@ -20,18 +20,21 @@ export const loginData = async ({ email, password }) => {
   }
 }
 
-export const addItem = async ({item, jwt}) => {
-    const authorization = `Bearer ${jwt}`
-    console.log(authorization)
+export const addItem = async ({item}) => {
+    const jwt = localStorage.getItem('shoppingToken')
+    // const authorization = `Bearer ${jwt}`
+    // console.log(authorization)
     try {
       const config = {
         headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${jwt}`,
+          'Content-Type': 'application/json'
         },
       }
 
       const { data } = await axios.post(`${API_BASE_URL}/orders/`, item, config)
+    //   const res = await fetch(`${API_BASE_URL}/orders/`,item, config)
+    //   const newdata = await res.json()
+
       return data
     } catch (error) {
       console.log(error)

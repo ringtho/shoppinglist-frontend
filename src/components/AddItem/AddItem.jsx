@@ -35,7 +35,7 @@ const AddItem = ({ setList, setIsActive }) => {
     e.preventDefault()
 
     try {
-      const res = await addItem({item, jwt})
+      const res = await addItem({item})
     } catch (error) {
       console.log(error)
     }

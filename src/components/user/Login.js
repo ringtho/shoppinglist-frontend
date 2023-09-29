@@ -40,6 +40,8 @@ const Login = ({ history, location }) => {
     try {
       const res = await loginData({email, password});
       localStorage.setItem('shoppingToken', res.data.token)
+      const jwt = res.data.token
+      document.cookie = `jwt=${jwt}`
       navigate('/')
       // navigate('/')
     } catch (error) {
@@ -49,7 +51,7 @@ const Login = ({ history, location }) => {
   };
 
   return (
-    <div className="container">
+    <div className="auth_container">
       <form className="shadow-lg" onSubmit={submitHandler}>
         <h2>Shopping List Login</h2>
         <div className="form-group">
