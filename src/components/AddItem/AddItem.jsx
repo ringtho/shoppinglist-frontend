@@ -10,6 +10,7 @@ const AddItem = ({ setIsActive }) => {
     notes: '',
     is_completed: false
   })
+  const [isSubmitting, setIsSubmitting] = useState(false)
 
   const handleChange = (e) => {
     const itemName = e.target.name
@@ -20,6 +21,7 @@ const AddItem = ({ setIsActive }) => {
   }
 
   const handleSubmit = async () => {
+    setIsSubmitting(true)
     try {
       const res = await addItem(item)
       console.log(res)
@@ -27,6 +29,7 @@ const AddItem = ({ setIsActive }) => {
       console.log(error)
     } finally {
       setIsActive(false)
+      setIsSubmitting(false)
     }
   }
 
@@ -74,8 +77,8 @@ const AddItem = ({ setIsActive }) => {
         <button onClick={() => setIsActive(false)} className="button-cancel">
           Cancel
         </button>
-        <button type="submit">
-          Add Item
+        <button type="submit" disabled={isSubmitting? true : false }>
+          {isSubmitting ? 'Adding Item' :'Add Item'}
         </button>
       </form>
     </div>

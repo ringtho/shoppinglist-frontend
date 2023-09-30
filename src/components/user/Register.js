@@ -1,16 +1,16 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { register } from "../../api";
 import Alert from "../Alert/Alert";
-import axios from "axios";
 
 const Register = () => {
   const [user, setUser] = useState({
-    first_name: "",
-    last_name: "",
-    email: "",
-    password: "",
-  });
+    first_name: '',
+    last_name: '',
+    email: '',
+    password: '',
+  })
+  const [isSubmitting, setIsSubmitting] = useState(false)
   const [error, setError] = useState(null)
   const [showAlert, setShowAlert] = useState(false)
   const navigate = useNavigate()
@@ -18,6 +18,7 @@ const Register = () => {
   const { first_name, last_name, email, password } = user;
 
   const submitHandler = async (e) => {
+    setIsSubmitting(true)
     e.preventDefault();
     try {
       const res = await register(user)
@@ -32,6 +33,8 @@ const Register = () => {
         email: '',
         password: '',
       })
+    } finally {
+      setIsSubmitting(false)
     }
     
   };
@@ -106,8 +109,9 @@ const Register = () => {
           id="register_button"
           type="submit"
           className="btn btn-block py-3"
+          disabled={isSubmitting}
         >
-          REGISTER
+          {isSubmitting ? 'REGISTERING' : 'REGISTER'}
         </button>
         <Link to="/" className="float-right mt-3">
           Already a member? Login

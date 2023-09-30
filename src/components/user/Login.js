@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Link, useLocation } from "react-router-dom";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
 import { useNavigate } from 'react-router-dom'
-import { login, add } from "../../reducers/authSlice";
+import { login } from "../../reducers/authSlice";
 import { loginData } from "../../api";
 import Alert from "../Alert/Alert";
 import './Login.scss'
@@ -12,24 +12,13 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null)
   const [showAlert, setShowAlert] = useState(false)
-  // const [message, setMessage] = useState('')
+  const [isSubmitting, setIsSubmitting] = useState(false)
   const dispatch = useDispatch(); 
   const navigate = useNavigate()
 
-  const location = useLocation()
-
-  // useEffect(() => {
-  //   if (location.state?.message) {
-  //     setMessage(location.state.message)
-  //     setShowAlert(true)
-  //     navigate('/', { replace: true })
-  //   }
-  //   setMessage('')
-    
-  // }, [])
-
   const submitHandler = async (e) => {
     e.preventDefault();
+    setIsSubmitting(true)
     try {
       const res = await loginData({email, password});
       console.log(res)
@@ -42,9 +31,12 @@ const Login = () => {
       setError(error.response)
       setEmail('')
       setPassword('')
+    } finally {
+      setIsSubmitting(false)
     }
-    
-  };
+  }
+
+  console.log(isSubmitting)
 
   return (
     <div className="auth_container">
@@ -83,16 +75,13 @@ const Login = () => {
             placeholder="*******"
           />
         </div>
-
-        {/* Display error if there's an authentication error */}
-        {/* {error && <div className="error-message">{error}</div>} */}
-
         <button
           id="login_button"
           type="submit"
           className="button btn btn-block py-3"
+          disabled={isSubmitting}
         >
-          LOGIN
+          {isSubmitting? 'LOGINNING IN' : 'LOGIN'}
         </button>
 
         <Link to="/register" className="float-right mt-3">
@@ -101,6 +90,6 @@ const Login = () => {
       </form>
     </div>
   )
-};
+}
 
-export default Login;
+export default Login

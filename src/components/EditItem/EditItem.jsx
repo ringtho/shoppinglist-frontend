@@ -3,7 +3,7 @@ import './EditItem.scss'
 import PropTypes from 'prop-types'
 import { editItem } from '../../api'
 
-const EditItem = ({ setList, setIsActive, itemId }) => {
+const EditItem = ({ setIsActive, itemId }) => {
   const { id, item, quantity, notes, is_completed } = itemId
   const [newItem, setNewItem] = useState({
     id,
@@ -12,6 +12,7 @@ const EditItem = ({ setList, setIsActive, itemId }) => {
     notes,
     is_completed
   })
+  const [isSubmitting, setIsSubmitting] = useState(false)
 
   const handleChange = (e) => {
     const itemName = e.target.name
@@ -23,6 +24,7 @@ const EditItem = ({ setList, setIsActive, itemId }) => {
   }
 
   const handleSubmit = async () => {
+    setIsSubmitting(true)
     try {
       const res = await editItem(newItem)
       console.log(res)
@@ -30,6 +32,7 @@ const EditItem = ({ setList, setIsActive, itemId }) => {
       console.log(error)
     } finally {
       setIsActive(false)
+      setIsSubmitting(false)
     }
   }
 
@@ -78,8 +81,13 @@ const EditItem = ({ setList, setIsActive, itemId }) => {
           />
           <label htmlFor="completed">Completed</label>
         </div>
-        <button onClick={() => setIsActive(false)} className='button-cancel'>Cancel</button>
-        <button type="submit">Save Changes</button>
+        <button 
+          onClick={() => setIsActive(false)} 
+          className='button-cancel'
+        >Cancel</button>
+        <button type="submit">
+          {isSubmitting ? 'Saving' : 'Save Changes'}
+        </button>
       </form>
     </div>
   )

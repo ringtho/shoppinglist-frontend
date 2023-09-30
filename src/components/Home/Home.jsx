@@ -9,6 +9,7 @@ import DeleteItem from '../DeleteItem/DeleteItem'
 import ItemDashboard from '../ItemDashboard/ItemDashboard'
 import { getItems } from '../../api'
 import Loading from '../Loading/Loading'
+import NoItems from '../NoItems/NoItems'
 
 const Home = () => {
   const [isAddItemActive, setIsAddItemActive] = useState(false)
@@ -16,7 +17,6 @@ const Home = () => {
   const [isDeleteItemActive, setIsDeleteItemActive] = useState(false)
   const [itemId, setItemId] = useState([])
   const [isSubmitting, setIsSubmitting] = useState(false)
-
   const [items, setItems] = useState([])
 
   useEffect(() => {
@@ -41,40 +41,45 @@ const Home = () => {
   }, [items])
 
   return (
-    <div className='main-container'>
+    <div className="main-container">
       <Navbar />
-      {isSubmitting ? <Loading /> :
-      <div className="home__items">
-        <button
-          onClick={() => setIsAddItemActive(true)}
-          className='add__item-button'
-        >Add Item</button>
-        {/* <ItemInput setList={setList} /> */}
-        <ItemDashboard items={items} />
-        <Items
-          items={items}
-          setIsEditItemActive={setIsEditItemActive}
-          setIsDeleteItemActive={setIsDeleteItemActive}
-          setItemId={setItemId}
-        />
-      </div> }
+      {isSubmitting ? (
+        <Loading />
+      ) : (
+        <div className="home__items">
+          <button
+            onClick={() => setIsAddItemActive(true)}
+            className="add__item-button"
+          >
+            <i class="fa-solid fa-plus"></i>Add Item
+          </button>
+          {/* <ItemInput setList={setList} /> */}
+          {items.length === 0 ? (
+            <NoItems setIsActive={setIsAddItemActive} />
+          ) : (
+            <>
+              <ItemDashboard items={items} />
+              <Items
+                items={items}
+                setIsEditItemActive={setIsEditItemActive}
+                setIsDeleteItemActive={setIsDeleteItemActive}
+                setItemId={setItemId}
+              />
+            </>
+          )}
+        </div>
+      )}
       {isAddItemActive && (
-        <AddItem 
-          setIsActive={setIsAddItemActive} 
+        <AddItem
+          setIsActive={setIsAddItemActive}
           setIsSubmitting={setIsSubmitting}
         />
       )}
       {isEditItemActive && (
-        <EditItem
-          itemId={itemId}
-          setIsActive={setIsEditItemActive}
-        />
+        <EditItem itemId={itemId} setIsActive={setIsEditItemActive} />
       )}
       {isDeleteItemActive && (
-        <DeleteItem
-          setIsActive={setIsDeleteItemActive}
-          item={itemId}
-        />
+        <DeleteItem setIsActive={setIsDeleteItemActive} item={itemId} />
       )}
     </div>
   )

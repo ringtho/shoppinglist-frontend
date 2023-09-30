@@ -21,9 +21,6 @@ const Item = (props) => {
   }
 
   useEffect(() => {
-    console.log(is_completed)
-    console.log({ id, item, quantity, notes, is_completed: isComplete })
-    console.log(isComplete)
     const editComplete = async () => {
       try {
         const res = await editItem({
@@ -45,11 +42,18 @@ const Item = (props) => {
   }, [isComplete])
 
   const handleIsComplete = async () => {
-    // console.log(is_completed)
-    setIsComplete(prev => !prev)
-    // console.log({ id, item, quantity, notes, is_completed: isComplete })
-    // e.preventDefault()
-    
+    try {
+      const res = await editItem({
+        id,
+        item,
+        quantity,
+        notes,
+        is_completed: isComplete,
+      })
+      setIsComplete((prev) => !prev)
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   return (
@@ -68,7 +72,7 @@ const Item = (props) => {
           {isComplete && <i className="fa fa-check icon-white" aria-hidden="true"></i>}
         </div>
         <div className="item__text-wrapper">
-          <p className="item__text">
+          <p className={ isComplete ? "item__text text-lined" : "item__text"}>
             {item} <span className="item__quantity">({quantity})</span>
           </p>
           <span className="item__description">{notes}</span>

@@ -104,14 +104,13 @@
     color: #635FC7;
 }
 
-.filled__complete {
-
-    p {
-        text-decoration: line-through;
-    }
-}
-
 .icon-white {
     color: #FFFFFF;
     font-size: 1rem;
+}
+
+.text-lined {
+    text-decoration: line-through;
+    font-weight: 300;
+    opacity: 0.4;
 }

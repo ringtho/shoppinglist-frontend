@@ -1,0 +1,55 @@
+.no-items-container {
+    min-height: 65vh;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    text-align: center;
+    line-height: 25px;
+
+    .no-items-wrapper {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+
+        button {
+            width: 150px;
+            align-self: center;
+        }
+    }
+
+    .text-no-items {
+        font-size: 1.25rem;
+        color: rgba(130, 143, 163, 0.25);
+        font-weight: 600;
+
+        @media screen and (min-width: 720px) {
+            font-size: 1.5rem;
+        }
+    }
+
+    .start-no-text {
+        font-size: 0.9rem;
+        opacity: 0.7;
+
+        @media screen and (min-width: 720px) {
+            font-size: 1.25rem;
+        }
+        
+    }
+
+    button {
+        background-color: var(--text-color);
+
+        &:hover {
+            opacity: 0.8;
+            transition: opacity 0.3s;
+        }
+
+        i {
+            margin-right: 0.5rem;
+        }
+    }
+
+}

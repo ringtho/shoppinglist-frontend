@@ -27,8 +27,12 @@ function App() {
     <Router>
       <main className="container content">
         <Routes>
-          <Route path="/home" element={<ProtectedRoute loggedIn={loggedIn} element={Home} />} />
-          {loggedIn && <Route path="/" element={<Login />} />}
+          <Route path="/home" element={<Home />} />
+          {/* <Route path="/home" element={
+            <ProtectedRoute loggedIn={loggedIn} >
+              <Home />
+            </ProtectedRoute>} /> */}
+          <Route path="/" element={<Login />} />
           <Route path="/register" element={<Register />} />
         </Routes>
       </main>
