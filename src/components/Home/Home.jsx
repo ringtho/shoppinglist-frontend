@@ -51,7 +51,7 @@ const Home = () => {
             onClick={() => setIsAddItemActive(true)}
             className="add__item-button"
           >
-            <i class="fa-solid fa-plus"></i>Add Item
+            <i className="fa-solid fa-plus"></i>Add Item
           </button>
           {/* <ItemInput setList={setList} /> */}
           {items.length === 0 ? (

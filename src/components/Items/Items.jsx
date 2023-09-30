@@ -1,12 +1,17 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import './Items.scss'
 import Item from '../Item/Item'
 import PropTypes from 'prop-types'
 
 
-const Items = ({ items, setList, setIsEditItemActive, setItemId, setIsDeleteItemActive }) => {
+const Items = ({ 
+    items, 
+    setList, 
+    setIsEditItemActive, 
+    setItemId, 
+    setIsDeleteItemActive 
+  }) => {
 
-  console.log(items)
   const itemsList = items?.map((item) => (
     <Item
       key={item.id}
@@ -25,8 +30,6 @@ const Items = ({ items, setList, setIsEditItemActive, setItemId, setIsDeleteItem
 }
 
 Items.propTypes = {
-  list: PropTypes.array,
-  setList: PropTypes.func,
   setIsEditItemActive: PropTypes.func,
   setIsDeleteItemActive: PropTypes.func,
   setItemId: PropTypes.func

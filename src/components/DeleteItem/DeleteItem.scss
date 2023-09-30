@@ -32,12 +32,13 @@
     }
 }
 
-.button-delete {
+#button {
     background-color: #EA5555;
 
     &:hover,
     &:focus {
-        background-color: #FF9898;
+        opacity: 0.8;
+        transition: opacity 0.3s;
     }
 }
 
