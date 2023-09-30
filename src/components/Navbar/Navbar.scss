@@ -11,8 +11,13 @@
     align-items: center;
     justify-content: space-between;
 
-    .nav__user {
+    .logout {
         margin-left: auto;
+        &:hover {
+            color: #3A7CFD;
+            cursor: pointer;
+            transition:  color 0.5s;
+        }
     }
 
     @media  screen and (min-width: 720px) {

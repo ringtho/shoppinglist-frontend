@@ -94,6 +94,11 @@ button {
     &:hover,
     &:focus {
         cursor: pointer;
-        background-color:#A8A4FF;
+        opacity: 0.8;
+        transition: opacity 0.3s;
+    }
+
+    &:disabled {
+        cursor: not-allowed;
     }
 }

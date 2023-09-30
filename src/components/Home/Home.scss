@@ -66,4 +66,19 @@ button {
     font-family: var(--primary-font);
     letter-spacing: 1px;
     font-weight: 500;
+
+    i {
+        margin-right: 0.5rem;
+    }
+
+    &:disabled {
+        cursor: not-allowed;
+    }
+}
+
+.main-container {
+    min-height: 100vh;
+
+    display: flex;
+    flex-direction: column;
 }
