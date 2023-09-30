@@ -81,7 +81,7 @@ const Login = () => {
           className="button btn btn-block py-3"
           disabled={isSubmitting}
         >
-          {isSubmitting? 'LOGINNING IN' : 'LOGIN'}
+          {isSubmitting? 'LOGGING IN' : 'LOGIN'}
         </button>
 
         <Link to="/register" className="float-right mt-3">
