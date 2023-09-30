@@ -9,30 +9,22 @@ export const loginData = async ({ email, password }) => {
       'Content-Type': 'application/json',
     },
   }
-  try {
-    const data = await axios.post(
-      `${API_BASE_URL}/login/`,
-      { email, password },
-      config
-    )
-    return data
-  } catch (error) {
-    throw error
-  }
+  const data = await axios.post(
+    `${API_BASE_URL}/login/`,
+    { email, password },
+    config
+  )
+  return data
 }
 
 export const register = async (user) => {
-  try {
-      const config = {
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      }
-      const data = await axios.post(`${API_BASE_URL}/register/`, user, config)
-      return data
-    } catch (error) {
-      console.log(error)
+  const config = {
+    headers: {
+      'Content-Type': 'application/json'
     }
+  }
+  const data = await axios.post(`${API_BASE_URL}/register/`, user, config)
+  return data
 }
 
 export const addItem = async (item) => {

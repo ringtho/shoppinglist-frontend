@@ -1,0 +1,55 @@
+.alert {
+    border: 1px solid black;
+    height: 40px;
+    border-radius: 0.25rem;
+    padding: 0.25rem 1rem;
+
+    display: flex;
+
+    p, div {
+        height: 100%;
+
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        font-size: 14px;
+        line-height: 24px;
+    }
+    p {
+        flex: 1;
+    }
+
+    div {
+        width: 20px;
+        justify-content: center;
+
+        &:hover {
+            cursor: pointer;
+        }
+    }
+}
+
+.danger {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+.info {
+    color: #0c5460;
+    background-color: #d1ecf1;
+    border-color: #bee5eb;
+}
+
+.warning {
+    color: #856404;
+    background-color: #fff3cd;
+    border-color: #ffeeba;
+}
+
+.success {
+    color: #155724;
+    background-color: #d4edda;
+    border-color: #c3e6cb;
+}

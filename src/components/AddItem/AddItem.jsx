@@ -3,10 +3,10 @@ import './AddItem.scss'
 import PropTypes from 'prop-types'
 import { addItem } from '../../api'
 
-const AddItem = ({ setIsSubmitting, setIsActive }) => {
+const AddItem = ({ setIsActive }) => {
   const [item, setItem] = useState({
     item: '',
-    quantity: 0,
+    quantity: '',
     notes: '',
     is_completed: false
   })
@@ -20,7 +20,6 @@ const AddItem = ({ setIsSubmitting, setIsActive }) => {
   }
 
   const handleSubmit = async () => {
-    setIsSubmitting(true)
     try {
       const res = await addItem(item)
       console.log(res)
@@ -28,7 +27,6 @@ const AddItem = ({ setIsSubmitting, setIsActive }) => {
       console.log(error)
     } finally {
       setIsActive(false)
-      setIsSubmitting(false)
     }
   }
 
@@ -45,6 +43,7 @@ const AddItem = ({ setIsSubmitting, setIsActive }) => {
             value={item.item}
             onChange={handleChange}
             placeholder="e.g Oreos"
+            required
           />
         </div>
         <div className="add__item-wrapper">
@@ -57,6 +56,7 @@ const AddItem = ({ setIsSubmitting, setIsActive }) => {
             value={item.quantity}
             onChange={handleChange}
             placeholder="eg 2"
+            required
           />
         </div>
         <div className="add__item-wrapper">
@@ -68,6 +68,7 @@ const AddItem = ({ setIsSubmitting, setIsActive }) => {
             value={item.notes}
             onChange={handleChange}
             placeholder="eg For Smith and Ethan"
+            required
           />
         </div>
         <button onClick={() => setIsActive(false)} className="button-cancel">
@@ -82,7 +83,6 @@ const AddItem = ({ setIsSubmitting, setIsActive }) => {
 }
 
 AddItem.propTypes = {
-  setIsSubmitting: PropTypes.func,
   setIsActive: PropTypes.func
 }
 

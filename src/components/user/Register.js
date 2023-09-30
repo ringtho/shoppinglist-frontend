@@ -1,48 +1,39 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-// import { register } from "../../actions/authActions";
 import { Link, useNavigate } from "react-router-dom";
 import { register } from "../../api";
+import Alert from "../Alert/Alert";
 import axios from "axios";
 
-const Register = ({ history }) => {
+const Register = () => {
   const [user, setUser] = useState({
     first_name: "",
     last_name: "",
     email: "",
     password: "",
   });
+  const [error, setError] = useState(null)
+  const [showAlert, setShowAlert] = useState(false)
   const navigate = useNavigate()
 
   const { first_name, last_name, email, password } = user;
-  const dispatch = useDispatch();
-
-  const { isAuthenticated, error, loading } = useSelector(
-    (state) => state.auth
-  );
-
-  useEffect(() => {
-    if (isAuthenticated) {
-      history.push("/");
-    }
-
-    // Handle errors using Redux actions
-    if (error) {
-      // You can dispatch an action to clear errors if needed.
-    }
-  }, [dispatch, isAuthenticated, error, history]);
 
   const submitHandler = async (e) => {
     e.preventDefault();
     try {
       const res = await register(user)
       console.log(res)
-      navigate('/')
+      navigate('/', { replace:true })
     } catch (error) {
-      console.log(error)
+      setShowAlert(true)
+      setError(error.response.status)
+      setUser({
+        first_name: '',
+        last_name: '',
+        email: '',
+        password: '',
+      })
     }
-
-    // Dispatch the registration action with the user data
+    
   };
 
   const onChange = (e) => {
@@ -53,7 +44,13 @@ const Register = ({ history }) => {
     <div className="auth_container">
       <form className="shadow-lg" onSubmit={submitHandler}>
         <h2 className="mb-3">Shopping List Register</h2>
-
+        {error === 500 && showAlert && (
+          <Alert
+            message="Account with this email address already exists"
+            variant="danger"
+            setShowAlert={setShowAlert}
+          />
+        )}
         <div className="form-group">
           <label htmlFor="first_name_field">First Name</label>
           <input
@@ -109,7 +106,6 @@ const Register = ({ history }) => {
           id="register_button"
           type="submit"
           className="btn btn-block py-3"
-          disabled={loading ? true : false}
         >
           REGISTER
         </button>
