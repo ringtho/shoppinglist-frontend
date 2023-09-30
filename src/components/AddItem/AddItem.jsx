@@ -1,11 +1,9 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import './AddItem.scss'
 import PropTypes from 'prop-types'
-// import { addItem } from '../../actions/authActions'
 import { addItem } from '../../api'
-import { useDispatch } from 'react-redux'
 
-const AddItem = ({ setList, setIsActive }) => {
+const AddItem = ({ setIsSubmitting, setIsActive }) => {
   const [item, setItem] = useState({
     item: '',
     quantity: 0,
@@ -22,6 +20,7 @@ const AddItem = ({ setList, setIsActive }) => {
   }
 
   const handleSubmit = async () => {
+    setIsSubmitting(true)
     try {
       const res = await addItem(item)
       console.log(res)
@@ -29,12 +28,13 @@ const AddItem = ({ setList, setIsActive }) => {
       console.log(error)
     } finally {
       setIsActive(false)
+      setIsSubmitting(false)
     }
   }
 
   return (
     <div className="add__item">
-      <form className="add__form">
+      <form className="add__form" onSubmit={handleSubmit}>
         <h3>Add Item</h3>
         <div className="add__item-wrapper">
           <label htmlFor="name">Item</label>
@@ -73,7 +73,7 @@ const AddItem = ({ setList, setIsActive }) => {
         <button onClick={() => setIsActive(false)} className="button-cancel">
           Cancel
         </button>
-        <button type="button" onClick={handleSubmit}>
+        <button type="submit">
           Add Item
         </button>
       </form>
@@ -82,7 +82,7 @@ const AddItem = ({ setList, setIsActive }) => {
 }
 
 AddItem.propTypes = {
-  setList: PropTypes.func,
+  setIsSubmitting: PropTypes.func,
   setIsActive: PropTypes.func
 }
 

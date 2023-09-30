@@ -67,3 +67,10 @@ button {
     letter-spacing: 1px;
     font-weight: 500;
 }
+
+.main-container {
+    min-height: 100vh;
+
+    display: flex;
+    flex-direction: column;
+}

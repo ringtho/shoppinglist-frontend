@@ -8,23 +8,29 @@ import EditItem from '../EditItem/EditItem'
 import DeleteItem from '../DeleteItem/DeleteItem'
 import ItemDashboard from '../ItemDashboard/ItemDashboard'
 import { getItems } from '../../api'
+import Loading from '../Loading/Loading'
 
 const Home = () => {
   const [isAddItemActive, setIsAddItemActive] = useState(false)
   const [isEditItemActive, setIsEditItemActive] = useState(false)
   const [isDeleteItemActive, setIsDeleteItemActive] = useState(false)
   const [itemId, setItemId] = useState([])
+  const [isSubmitting, setIsSubmitting] = useState(false)
 
   const [items, setItems] = useState([])
 
   useEffect(() => {
+    setIsSubmitting(true)
     const getItemsList = async () => {
       try {
         const itemsList = await getItems()
           .then((items) => setItems(items))
         return itemsList
       } catch (error) {
+        setItems([])
         console.log(error)
+      } finally {
+        setIsSubmitting(false)
       }
     }
     getItemsList()
@@ -37,6 +43,7 @@ const Home = () => {
   return (
     <div className='main-container'>
       <Navbar />
+      {isSubmitting ? <Loading /> :
       <div className="home__items">
         <button
           onClick={() => setIsAddItemActive(true)}
@@ -50,9 +57,12 @@ const Home = () => {
           setIsDeleteItemActive={setIsDeleteItemActive}
           setItemId={setItemId}
         />
-      </div>
+      </div> }
       {isAddItemActive && (
-        <AddItem setIsActive={setIsAddItemActive} />
+        <AddItem 
+          setIsActive={setIsAddItemActive} 
+          setIsSubmitting={setIsSubmitting}
+        />
       )}
       {isEditItemActive && (
         <EditItem
