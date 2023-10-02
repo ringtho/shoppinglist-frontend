@@ -13,7 +13,7 @@ const Login = () => {
   const [error, setError] = useState(null)
   const [showAlert, setShowAlert] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
-  const dispatch = useDispatch(); 
+  // const dispatch = useDispatch(); 
   const navigate = useNavigate()
 
   const submitHandler = async (e) => {
@@ -22,8 +22,9 @@ const Login = () => {
     try {
       const res = await loginData({email, password});
       const token = res.data.token
+      console.log(token)
       localStorage.setItem('token', token)
-      dispatch(login(token))
+      // dispatch(login(token))
       navigate('/home')
     } catch (error) {
       setShowAlert(true)

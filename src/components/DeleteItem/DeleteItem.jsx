@@ -1,14 +1,13 @@
 import React from 'react'
 import './DeleteItem.scss'
-import PropTypes from 'prop-types'
 import { deleteItem } from '../../api'
 
-const DeleteItem = ({ setIsActive, _id, setSelectedItem }) => {
+const DeleteItem = ({ setIsActive, id, setSelectedItem }) => {
 
   const handleDelete = async(e) => {
     e.preventDefault()
     try {
-      await deleteItem(_id)
+      await deleteItem(id)
       setSelectedItem(null)
     } catch (error) {
       console.log(error)

@@ -5,29 +5,30 @@ import { editItem } from '../../api'
 
 const Item = (props) => {
   const {
-    _id, 
+    id, 
     item, 
     quantity, 
     notes, 
-    completed, 
+    is_completed, 
     setIsEditItemActive,
     setIsDeleteItemActive,
-    setSelectedItem
+    setSelectedItem,
+    setItems
   } = props
 
-  const [isComplete, setIsComplete] = useState(completed)
+  const [isComplete, setIsComplete] = useState(is_completed)
   const [isActive, setIsActive] = useState(false)
 
   // console.log(completed)
   // console.log(isComplete)
 
   const handleEditClick = () => {
-    setSelectedItem({ _id, item, quantity, notes, completed })
+    setSelectedItem({ id, item, quantity, notes, is_completed })
     setIsEditItemActive(true)
   }
 
   const handleDeleteClick = () => {
-    setSelectedItem({ _id, item, quantity, notes, completed })
+    setSelectedItem({ id, item, quantity, notes, is_completed })
     setIsDeleteItemActive(true)
   }
 
@@ -35,12 +36,13 @@ const Item = (props) => {
   //   const editComplete = async () => {
   //     try {
   //       const res = await editItem({
-  //         _id,
+  //         id,
   //         item,
   //         quantity,
   //         notes,
-  //         completed: isComplete,
+  //         is_completed: isComplete,
   //       })
+  //       setIsComplete(!isComplete)
   //       setSelectedItem(null)
   //     } catch (error) {
   //       console.log(error)
@@ -50,20 +52,30 @@ const Item = (props) => {
   // }, [isComplete])
 
   const handleIsComplete = async () => {
-    setIsComplete(!isComplete)
-    console.log('completed:', isComplete)
     try {
       const res = await editItem({
-        _id,
+        id,
         item,
         quantity,
         notes,
-        completed: isComplete,
+        is_completed: !isComplete,
       })
+      console.log(res)
       setIsComplete(!isComplete)
-      setSelectedItem(null)
+      setItems(prev => {
+        const updated = prev.map(item => {
+          if (item.id === res.id) {
+            return res
+          } else {
+            return item
+          }
+        })
+        return updated
+      })
     } catch (error) {
       console.log(error)
+    } finally {
+      setSelectedItem(null)
     }
   }
 
@@ -71,21 +83,21 @@ const Item = (props) => {
     <li className="item__container">
       <div
         className={
-          !completed ? 'item__wrapper' : 'item__wrapper filled__complete'
+          !is_completed ? 'item__wrapper' : 'item__wrapper filled__complete'
         }
         onMouseEnter={() => setIsActive(true)}
         onMouseLeave={() => setIsActive(false)}
       >
         <div
-          className={completed ? 'circle__item circle__fill' : 'circle__item'}
+          className={is_completed ? 'circle__item circle__fill' : 'circle__item'}
           onClick={handleIsComplete}
         >
-          {completed && (
+          {is_completed && (
             <i className="fa fa-check icon-white" aria-hidden="true"></i>
           )}
         </div>
         <div className="item__text-wrapper">
-          <p className={completed ? 'item__text text-lined' : 'item__text'}>
+          <p className={is_completed ? 'item__text text-lined' : 'item__text'}>
             {item} <span className="item__quantity">({quantity})</span>
           </p>
           <span className="item__description">{notes}</span>

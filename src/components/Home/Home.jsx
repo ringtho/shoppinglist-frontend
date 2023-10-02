@@ -9,6 +9,7 @@ import DeleteItem from '../DeleteItem/DeleteItem'
 import ItemDashboard from '../ItemDashboard/ItemDashboard'
 import { getAllItems } from '../../api'
 import NoItems from '../NoItems/NoItems'
+import Loading from '../Loading/Loading'
 
 const Home = () => {
   const [isAddItemActive, setIsAddItemActive] = useState(false)
@@ -18,14 +19,34 @@ const Home = () => {
   const [selectedItem, setSelectedItem] = useState(null)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [items, setItems] = useState([])
-  const [params, setParams] = useState({})
+  const [sortedItems, setSortedItems] = useState([])
+  const [isLoading, setIsLoading] = useState(true)
+  const [filteredItems, setFilteredItems] = useState([])
+  const [searchValue, setSearchValue] = useState('')
 
   useEffect(() => {
+    console.log('refreshing')
     setIsSubmitting(true)
+    setIsLoading(true)
     const getItemsList = async () => {
       try {
-        const { data } = await getAllItems(params)
-        setItems(data.items)
+        const { data } = await getAllItems()
+        console.log(data)
+        setItems(data)
+        if (filteredItems.length > 0) {
+          const updated = filteredItems.map((oldItem) => {
+            const newItem = data.find(
+              (updatedItem) => updatedItem.id === oldItem.id
+            )
+            if (newItem !== undefined) {
+              return newItem
+            }
+          })
+          setFilteredItems(updated)
+        }
+
+      
+        setIsLoading(false)
       } catch (error) {
         console.log(error)
       } finally {
@@ -33,12 +54,16 @@ const Home = () => {
       }
     }
     getItemsList()
-  }, [selectedItem, params])
+  }, [selectedItem])
 
-
-  // useEffect(() => {
-
-  // }, [items])
+  useEffect(() => {
+    if (searchValue) {
+      const filtered = items.filter(
+        (item) => (item.item.toLowerCase().includes(searchValue)))
+      console.log(filtered)
+      setFilteredItems(filtered)
+    }
+  },[searchValue])
 
   return (
     <div className="main-container">
@@ -51,19 +76,26 @@ const Home = () => {
           <i className="fa-solid fa-plus"></i>Add Item
         </button>
 
-        {items.length === 0 ? (
-          <NoItems setIsActive={setIsAddItemActive} />
-        ) : (
+        {(isLoading && items?.length === 0) ? (
+          
+          <Loading />
+        ) : (!isLoading && items?.length === 0) 
+          ? <NoItems setIsActive={setIsAddItemActive} /> 
+          :(
           <>
-            <ItemInput setItems={setItems} setParams={setParams} />
-            <ItemDashboard items={items} setParams={setParams} />
+            <ItemInput setItems={setItems} setSearchValue={setSearchValue} />
+            <ItemDashboard 
+              items={items} 
+              setSortedItems={setSortedItems}
+              setItems={setItems} 
+            />
             <Items
-              items={items}
+              items={!searchValue ? items : filteredItems }
               setIsEditItemActive={setIsEditItemActive}
               setIsDeleteItemActive={setIsDeleteItemActive}
-              setItemId={setItemId}
               selectedItem={selectedItem}
               setSelectedItem={setSelectedItem}
+              setItems={setItems}
             />
           </>
         )}
