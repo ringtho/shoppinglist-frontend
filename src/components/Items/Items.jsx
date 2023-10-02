@@ -6,19 +6,19 @@ import PropTypes from 'prop-types'
 
 const Items = ({ 
     items, 
-    setList, 
     setIsEditItemActive, 
     selectedItem, 
     setIsDeleteItemActive ,
-    setSelectedItem
+    setSelectedItem,
+    setItems
   }) => {
 
   const itemsList = items?.map((item) => (
     <Item
-      key={item._id}
+      key={item.id}
       {...item}
       selectedItem={selectedItem}
-      setList={setList}
+      setItems={setItems}
       setIsEditItemActive={setIsEditItemActive}
       setIsDeleteItemActive={setIsDeleteItemActive}
       setSelectedItem={setSelectedItem}

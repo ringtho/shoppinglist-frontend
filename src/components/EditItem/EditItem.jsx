@@ -4,15 +4,17 @@ import PropTypes from 'prop-types'
 import { editItem } from '../../api'
 
 const EditItem = ({ setIsActive, selectedItem, setSelectedItem }) => {
-  const { _id, item, quantity, notes, completed } = selectedItem
+  const { id, item, quantity, notes, is_completed } = selectedItem
   const [updatedItem, setUpdatedItem] = useState({
-    _id,
+    id,
     item,
     quantity,
     notes,
-    completed
+    is_completed
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
+
+  console.log(updatedItem)
 
   const handleChange = (e) => {
     const itemName = e.target.name
@@ -76,8 +78,8 @@ const EditItem = ({ setIsActive, selectedItem, setSelectedItem }) => {
           <input
             type="checkbox"
             id="completed"
-            name="completed"
-            checked={updatedItem.completed}
+            name="is_completed"
+            checked={updatedItem.is_completed}
             onChange={handleChange}
           />
           <label htmlFor="completed">Completed</label>

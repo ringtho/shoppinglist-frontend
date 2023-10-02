@@ -1,13 +1,13 @@
 import React, { useState } from 'react'
 import './AddItem.scss'
-import PropTypes from 'prop-types'
 import { addItem } from '../../api'
 
 const AddItem = ({ setIsActive, setSelectedItem }) => {
   const [item, setItem] = useState({
     item: '',
     quantity: '',
-    notes: ''
+    notes: '',
+    is_completed: false
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
 

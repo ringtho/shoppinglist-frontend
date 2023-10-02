@@ -2,16 +2,12 @@ import React, { useState } from 'react'
 import './ItemInput.scss'
 import PropTypes from 'prop-types'
 
-const ItemInput = ({ setParams }) => {
+const ItemInput = ({ setSearchValue }) => {
   const [item, setItem] = useState('')  
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    const param = {
-      item
-    }
-    setItem('')
-    setParams(param)
+    setSearchValue(item)
   }
 
   return (
@@ -22,7 +18,6 @@ const ItemInput = ({ setParams }) => {
             id='item'
             value={item}
             placeholder='Search Item'
-            required
             onChange={(e) => setItem(e.target.value)} />
             <button className='search-button'>SEARCH</button>
         </form>

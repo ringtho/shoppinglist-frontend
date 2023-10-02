@@ -1,12 +1,16 @@
 import axios from 'axios'
 
 const API_BASE_URL = process.env.REACT_APP_NODE_API_URL
-const jwt = localStorage.getItem('token')
-const config = {
-  headers: {
-    'Content-Type': 'application/json',
-    Authorization: `Bearer ${jwt}`,
-  },
+
+const getHeaders = () => {
+  const jwt = localStorage.getItem('token')
+  const config = {
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `${jwt}`,
+    },
+  }
+  return config
 }
 
 /**
@@ -22,7 +26,7 @@ export const loginData = async ({ email, password }) => {
     },
   }
   const data = await axios.post(
-    `${API_BASE_URL}/auth/login/`,
+    `${API_BASE_URL}/login/`,
     { email, password },
     config
   )
@@ -43,7 +47,7 @@ export const register = async (user) => {
       'Content-Type': 'application/json'
     }
   }
-  const data = await axios.post(`${API_BASE_URL}/auth/signup/`, user, config)
+  const data = await axios.post(`${API_BASE_URL}/register/`, user, config)
   return data
 }
 
@@ -52,44 +56,34 @@ export const register = async (user) => {
  * @param {string} item - The item's title.
  * @param {number} quantity - The item's quantity.
  * @param {string} notes - The item's description.
- * @param {boolean} is_completed - The item's status.
+ * @param {boolean} completed - The item's status.
  * @returns {Promise} A Promise that resolves with the added item response data.
  */
 export const addItem = async (item) => {
-    const { data } = await axios.post(`${API_BASE_URL}/items`, item, config)
+    const config = getHeaders()
+    const { data } = await axios.post(`${API_BASE_URL}/orders/`, item, config)
     return data
 }
 
 /* Handles Api call for getting all items */
-export const getAllItems = async (params) => {
-  const { headers } = config
-  const sortParam = params.sort ? params.sort : ''
-  const searchParam = params.item ? params.item : ''
-  const data = await axios.get(`${API_BASE_URL}/items`, {
-    headers: headers,
-    params: {
-      sort: sortParam,
-      item: searchParam
-    },
-  })
+export const getAllItems = async () => {
+  const config = getHeaders()
+  const data = await axios.get(`${API_BASE_URL}/orders`,config)
   return data
 }
 
 /* Handles Api call for editing an item */
 export const editItem = async (item) => {
-  const { data } = await axios.patch(`${API_BASE_URL}/items/${item._id}`, item, config)
+  const config = getHeaders()
+  const { data } = await axios.put(`${API_BASE_URL}/orders/${item.id}`, item, config)
   return data
 }
 
 /* Handles Api call for deleting an item */
 export const deleteItem = async (id) => {
+  const config = getHeaders()
   const { data } = await axios.delete(
-    `${API_BASE_URL}/items/${id}`,config)
-  return data
-}
-
-export const searchItem = async (item) => {
-  const { data } = await axios.post(`${API_BASE_URL}/items/search`, { search: item }, config)
+    `${API_BASE_URL}/orders/${id}`,config)
   return data
 }
 
