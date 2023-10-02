@@ -22,7 +22,7 @@ npm start
 
 To access the views:
 ```bash
-localhost:3000/login
+localhost:3000
 ```
 
 
