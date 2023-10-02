@@ -5,52 +5,63 @@ import { editItem } from '../../api'
 
 const Item = (props) => {
   const {
-    item, id, quantity, notes, is_completed, setIsEditItemActive, setItemId, setIsDeleteItemActive,
+    _id, 
+    item, 
+    quantity, 
+    notes, 
+    completed, 
+    setIsEditItemActive,
+    setIsDeleteItemActive,
+    setSelectedItem
   } = props
-  const [isComplete, setIsComplete] = useState(is_completed)
+
+  const [isComplete, setIsComplete] = useState(completed)
   const [isActive, setIsActive] = useState(false)
 
+  // console.log(completed)
+  // console.log(isComplete)
+
   const handleEditClick = () => {
-    setItemId({ id, item, quantity, notes, is_completed })
+    setSelectedItem({ _id, item, quantity, notes, completed })
     setIsEditItemActive(true)
   }
 
   const handleDeleteClick = () => {
-    setItemId({ id, item, quantity, notes, is_completed })
+    setSelectedItem({ _id, item, quantity, notes, completed })
     setIsDeleteItemActive(true)
   }
 
-  useEffect(() => {
-    const editComplete = async () => {
-      try {
-        const res = await editItem({
-          id,
-          item,
-          quantity,
-          notes,
-          is_completed: isComplete,
-        })
-        // setIsComplete((prev) => !prev)
-      } catch (error) {
-        console.log(error)
-      }
-    }
-
-    editComplete()
-    
-
-  }, [isComplete])
+  // useEffect(() => {
+  //   const editComplete = async () => {
+  //     try {
+  //       const res = await editItem({
+  //         _id,
+  //         item,
+  //         quantity,
+  //         notes,
+  //         completed: isComplete,
+  //       })
+  //       setSelectedItem(null)
+  //     } catch (error) {
+  //       console.log(error)
+  //     }
+  //   }
+  //   editComplete()
+  // }, [isComplete])
 
   const handleIsComplete = async () => {
+    setIsComplete(!isComplete)
+    console.log('completed:', isComplete)
     try {
       const res = await editItem({
-        id,
+        _id,
         item,
         quantity,
         notes,
-        is_completed: isComplete,
+        completed: isComplete,
       })
-      setIsComplete((prev) => !prev)
+      setIsComplete(!isComplete)
+      setSelectedItem(null)
     } catch (error) {
       console.log(error)
     }
@@ -60,19 +71,21 @@ const Item = (props) => {
     <li className="item__container">
       <div
         className={
-          !is_completed ? 'item__wrapper' : 'item__wrapper filled__complete'
+          !completed ? 'item__wrapper' : 'item__wrapper filled__complete'
         }
         onMouseEnter={() => setIsActive(true)}
         onMouseLeave={() => setIsActive(false)}
       >
         <div
-          className={isComplete ? 'circle__item circle__fill' : 'circle__item'}
+          className={completed ? 'circle__item circle__fill' : 'circle__item'}
           onClick={handleIsComplete}
         >
-          {isComplete && <i className="fa fa-check icon-white" aria-hidden="true"></i>}
+          {completed && (
+            <i className="fa fa-check icon-white" aria-hidden="true"></i>
+          )}
         </div>
         <div className="item__text-wrapper">
-          <p className={ isComplete ? "item__text text-lined" : "item__text"}>
+          <p className={completed ? 'item__text text-lined' : 'item__text'}>
             {item} <span className="item__quantity">({quantity})</span>
           </p>
           <span className="item__description">{notes}</span>

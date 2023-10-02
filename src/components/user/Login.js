@@ -21,7 +21,6 @@ const Login = () => {
     setIsSubmitting(true)
     try {
       const res = await loginData({email, password});
-      console.log(res)
       const token = res.data.token
       localStorage.setItem('token', token)
       dispatch(login(token))
@@ -35,8 +34,6 @@ const Login = () => {
       setIsSubmitting(false)
     }
   }
-
-  console.log(isSubmitting)
 
   return (
     <div className="auth_container">

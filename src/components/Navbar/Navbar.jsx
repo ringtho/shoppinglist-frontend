@@ -2,7 +2,7 @@ import React from 'react'
 import './Navbar.scss'
 import { useNavigate } from 'react-router-dom'
 import { logout } from '../../reducers/authSlice'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 
 const Navbar = () => {
   const navigate = useNavigate()
@@ -10,6 +10,7 @@ const Navbar = () => {
 
   const logoutApp = () => {
     dispatch(logout())
+    localStorage.removeItem('token')
     navigate('/')
   }
   return (

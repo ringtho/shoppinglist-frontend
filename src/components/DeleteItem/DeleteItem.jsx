@@ -3,12 +3,13 @@ import './DeleteItem.scss'
 import PropTypes from 'prop-types'
 import { deleteItem } from '../../api'
 
-const DeleteItem = ({ setIsActive, item }) => {
+const DeleteItem = ({ setIsActive, _id, setSelectedItem }) => {
 
-  const handleDelete = async() => {
+  const handleDelete = async(e) => {
+    e.preventDefault()
     try {
-      const res = await deleteItem(item.id)
-      console.log(res)
+      await deleteItem(_id)
+      setSelectedItem(null)
     } catch (error) {
       console.log(error)
     } finally {
@@ -20,7 +21,7 @@ const DeleteItem = ({ setIsActive, item }) => {
     <div className="add__item">
       <form 
         className="delete__item" 
-        onSubmit={() => handleDelete()}
+        onSubmit={handleDelete}
       >
         <h3>Delete Item</h3>
         <p>Are you sure you want to delete this item? This action cannot be reversed</p>
@@ -30,7 +31,7 @@ const DeleteItem = ({ setIsActive, item }) => {
         >Cancel</button>
         <button 
           type='submit' 
-          onClick={() => handleDelete()} 
+          onClick={handleDelete} 
           id='button'
           className='button-delete'
         >Delete</button>

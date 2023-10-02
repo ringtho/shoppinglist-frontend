@@ -3,31 +3,34 @@ import './EditItem.scss'
 import PropTypes from 'prop-types'
 import { editItem } from '../../api'
 
-const EditItem = ({ setIsActive, itemId }) => {
-  const { id, item, quantity, notes, is_completed } = itemId
-  const [newItem, setNewItem] = useState({
-    id,
+const EditItem = ({ setIsActive, selectedItem, setSelectedItem }) => {
+  const { _id, item, quantity, notes, completed } = selectedItem
+  const [updatedItem, setUpdatedItem] = useState({
+    _id,
     item,
     quantity,
     notes,
-    is_completed
+    completed
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
+
+  console.log(updatedItem)
 
   const handleChange = (e) => {
     const itemName = e.target.name
     const value = e.target.value
     const checked = e.target.checked
-    setNewItem((prev) => {
+    setUpdatedItem((prev) => {
       return { ...prev, [itemName]: e.target.id === 'completed' ? checked : value }
     })
   }
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (e) => {
+    e.preventDefault()
     setIsSubmitting(true)
     try {
-      const res = await editItem(newItem)
-      console.log(res)
+      await editItem(updatedItem)
+      setSelectedItem(null)
     } catch (error) {
       console.log(error)
     } finally {
@@ -46,7 +49,7 @@ const EditItem = ({ setIsActive, itemId }) => {
             type="text"
             id="item"
             name="item"
-            value={newItem.item}
+            value={updatedItem.item}
             onChange={handleChange}
           />
         </div>
@@ -57,7 +60,7 @@ const EditItem = ({ setIsActive, itemId }) => {
             min={0}
             id="quantity"
             name="quantity"
-            value={newItem.quantity}
+            value={updatedItem.quantity}
             onChange={handleChange}
           />
         </div>
@@ -67,7 +70,7 @@ const EditItem = ({ setIsActive, itemId }) => {
             type="text"
             id="notes"
             name="notes"
-            value={newItem.notes}
+            value={updatedItem.notes}
             onChange={handleChange}
           />
         </div>
@@ -75,8 +78,8 @@ const EditItem = ({ setIsActive, itemId }) => {
           <input
             type="checkbox"
             id="completed"
-            name="is_completed"
-            checked={newItem.is_completed}
+            name="completed"
+            checked={updatedItem.completed}
             onChange={handleChange}
           />
           <label htmlFor="completed">Completed</label>

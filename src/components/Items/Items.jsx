@@ -8,18 +8,21 @@ const Items = ({
     items, 
     setList, 
     setIsEditItemActive, 
-    setItemId, 
-    setIsDeleteItemActive 
+    selectedItem, 
+    setIsDeleteItemActive ,
+    setSelectedItem
   }) => {
 
   const itemsList = items?.map((item) => (
     <Item
-      key={item.id}
+      key={item._id}
       {...item}
+      selectedItem={selectedItem}
       setList={setList}
       setIsEditItemActive={setIsEditItemActive}
-      setItemId={setItemId}
       setIsDeleteItemActive={setIsDeleteItemActive}
+      setSelectedItem={setSelectedItem}
+
     />
   ))
   return (
