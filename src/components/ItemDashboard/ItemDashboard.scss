@@ -42,6 +42,7 @@
 
 @media screen and (min-width: 720px) {
     .sort__controls {
+        margin-top: 2rem;
         h3 {
             font-size: 1.25rem;
         }
@@ -58,6 +59,10 @@
         justify-content: flex-end;
         align-items: center;
         gap: 1rem;
+
+        .sorting-title {
+            font-size: 1.1rem;
+        }
 
         .fa-chevron-circle-up {
             margin-right: unset;

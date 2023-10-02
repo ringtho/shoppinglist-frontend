@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import './DeleteItem.scss'
 import PropTypes from 'prop-types'
 import { deleteItem } from '../../api'
@@ -38,11 +38,6 @@ const DeleteItem = ({ setIsActive, _id, setSelectedItem }) => {
       </form>
     </div>
   )
-}
-
-DeleteItem.propTypes = {
-  setIsActive: PropTypes.func,
-  item: PropTypes.object
 }
 
 export default DeleteItem

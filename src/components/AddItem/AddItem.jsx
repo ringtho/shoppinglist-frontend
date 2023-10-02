@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import './AddItem.scss'
 import PropTypes from 'prop-types'
 import { addItem } from '../../api'
-import axios from 'axios'
 
 const AddItem = ({ setIsActive, setSelectedItem }) => {
   const [item, setItem] = useState({
@@ -27,7 +26,6 @@ const AddItem = ({ setIsActive, setSelectedItem }) => {
     try {
       const res = await addItem(item)
       setSelectedItem(res)
-      console.log(res)
     } catch (error) {
       console.log(error)
     } finally {
@@ -86,10 +84,6 @@ const AddItem = ({ setIsActive, setSelectedItem }) => {
       </form>
     </div>
   )
-}
-
-AddItem.propTypes = {
-  setIsActive: PropTypes.func
 }
 
 export default AddItem

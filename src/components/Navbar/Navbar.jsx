@@ -15,7 +15,7 @@ const Navbar = () => {
   }
   return (
     <nav className='home__nav'>
-        <h3>Shopping List</h3>
+        <h3 className='nav__title'>Shopping List</h3>
         <p className='logout' onClick={logoutApp}>LogOut</p>
     </nav>
   )

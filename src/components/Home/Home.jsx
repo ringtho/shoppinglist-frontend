@@ -8,9 +8,7 @@ import EditItem from '../EditItem/EditItem'
 import DeleteItem from '../DeleteItem/DeleteItem'
 import ItemDashboard from '../ItemDashboard/ItemDashboard'
 import { getAllItems } from '../../api'
-// import Loading from '../Loading/Loading'
 import NoItems from '../NoItems/NoItems'
-import { useSearchParams } from 'react-router-dom'
 
 const Home = () => {
   const [isAddItemActive, setIsAddItemActive] = useState(false)
@@ -20,15 +18,7 @@ const Home = () => {
   const [selectedItem, setSelectedItem] = useState(null)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [items, setItems] = useState([])
-  // const [searchParams] = useSearchParams()
   const [params, setParams] = useState({})
-
-  // useEffect(() => {
-  //   const currentParams = Object.fromEntries([...searchParams])
-  //   setParams(currentParams)
-  // }, [searchParams])
-
-  console.log(params)
 
   useEffect(() => {
     setIsSubmitting(true)
@@ -46,9 +36,9 @@ const Home = () => {
   }, [selectedItem, params])
 
 
-  useEffect(() => {
+  // useEffect(() => {
 
-  }, [items])
+  // }, [items])
 
   return (
     <div className="main-container">
@@ -60,11 +50,12 @@ const Home = () => {
         >
           <i className="fa-solid fa-plus"></i>Add Item
         </button>
-        <ItemInput setItems={setItems} setParams={setParams} />
+
         {items.length === 0 ? (
           <NoItems setIsActive={setIsAddItemActive} />
         ) : (
           <>
+            <ItemInput setItems={setItems} setParams={setParams} />
             <ItemDashboard items={items} setParams={setParams} />
             <Items
               items={items}
@@ -85,11 +76,11 @@ const Home = () => {
         />
       )}
       {isEditItemActive && (
-        <EditItem 
-          itemId={itemId} 
-          setIsActive={setIsEditItemActive} 
-          selectedItem={selectedItem} 
-          setSelectedItem={setSelectedItem} 
+        <EditItem
+          itemId={itemId}
+          setIsActive={setIsEditItemActive}
+          selectedItem={selectedItem}
+          setSelectedItem={setSelectedItem}
         />
       )}
       {isDeleteItemActive && (
