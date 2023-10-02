@@ -11,8 +11,14 @@
     align-items: center;
     justify-content: space-between;
 
+    .nav__title {
+        color: #3A7CFD;
+        letter-spacing: 0.75px;
+    }
+
     .logout {
         margin-left: auto;
+        letter-spacing: 0.5px;
         &:hover {
             color: #3A7CFD;
             cursor: pointer;

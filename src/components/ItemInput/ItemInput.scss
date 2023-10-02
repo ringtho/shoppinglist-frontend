@@ -7,9 +7,7 @@
         background-color: #FFF;
         width: 100%;
         border-radius: 0.5rem;
-        
         // border: 1px solid red;
-        
     }
 
     input {
@@ -23,6 +21,22 @@
         font-family: 'Raleway', sans-serif;
         caret-color: #3A7CFD; 
     }
+
+    .search-button {
+        width: 100px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        border-top-left-radius: 0px;
+        border-bottom-left-radius: 0px;
+
+        background-color: #212121;
+
+        &:hover {
+            background-color: #635FC7;
+        }
+    }
 }
 
 .circle__input {
@@ -32,8 +46,3 @@
     border: 1px solid black;
     background-color: red;
 }
-//     position: absolute;
-//     // z-index: 10;
-//     top: 0;
-//     left: 0;
-// }

@@ -26,11 +26,6 @@
                 width: 100%;
                 margin-right: auto;
             }
-
-            .sort__icon {
-                display: flex;
-                justify-content: flex-end;
-            }
         }
     }
 }
@@ -40,15 +35,6 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-}
-
-.sort__icon {
-    font-size: 2rem;
-
-    &:hover {
-        cursor: pointer;
-        color: #635FC7;
-    }
 }
 
 .add__item-button {

@@ -3,28 +3,29 @@ import './AddItem.scss'
 import PropTypes from 'prop-types'
 import { addItem } from '../../api'
 
-const AddItem = ({ setIsActive }) => {
+const AddItem = ({ setIsActive, setSelectedItem }) => {
   const [item, setItem] = useState({
     item: '',
     quantity: '',
-    notes: '',
-    is_completed: false
+    notes: ''
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
 
   const handleChange = (e) => {
-    const itemName = e.target.name
     const value = e.target.value
-    setItem(prev => {
-      return { ...prev, [itemName]: value }
-    })
+    const id = e.target.id
+    setItem((prev) => ({
+      ...prev,
+      [e.target.name]: id === 'quantity' ? Number(value) : value,
+    }))
   }
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (e) => {
+    e.preventDefault()
     setIsSubmitting(true)
     try {
       const res = await addItem(item)
-      console.log(res)
+      setSelectedItem(res)
     } catch (error) {
       console.log(error)
     } finally {
@@ -83,10 +84,6 @@ const AddItem = ({ setIsActive }) => {
       </form>
     </div>
   )
-}
-
-AddItem.propTypes = {
-  setIsActive: PropTypes.func
 }
 
 export default AddItem

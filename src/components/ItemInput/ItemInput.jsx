@@ -1,17 +1,17 @@
 import React, { useState } from 'react'
 import './ItemInput.scss'
 import PropTypes from 'prop-types'
-import { nanoid } from 'nanoid'
 
-const ItemInput = ({ setList }) => {
-  const [item, setItem] = useState('')
+const ItemInput = ({ setParams }) => {
+  const [item, setItem] = useState('')  
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    setList(prev => (
-      [{ id: nanoid(), item, completed: false }, ...prev]
-    ))
+    const param = {
+      item
+    }
     setItem('')
+    setParams(param)
   }
 
   return (
@@ -21,8 +21,10 @@ const ItemInput = ({ setList }) => {
             type='text'
             id='item'
             value={item}
-            placeholder='Create Item'
+            placeholder='Search Item'
+            required
             onChange={(e) => setItem(e.target.value)} />
+            <button className='search-button'>SEARCH</button>
         </form>
     </section>
   )
