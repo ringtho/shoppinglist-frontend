@@ -1,10 +1,10 @@
 # Shopping List
 
-An application used to create and modify a shopping list built using React, React Router, Javascript and CSS.
+An application used to create and modify a shopping list built using React, React Router, Javascript, and CSS.
 
 ## Project Status
 
-This project is currently in development. Users can create an account, login, create a shopping list item, modify a shopping list item and delete a shopping list item.
+This project is currently in development. Users can create an account, log in, create a shopping list item, modify a shopping list item, and delete a shopping list item.
 
 ## Installation
 
@@ -22,7 +22,7 @@ npm start
 
 To access the views:
 ```bash
-localhost:3000
+localhost:3000/
 ```
 
 
