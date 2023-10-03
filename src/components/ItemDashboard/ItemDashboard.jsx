@@ -2,12 +2,9 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import './ItemDashboard.scss'
 
-const ItemDashboard = ({ items, setSortedItems, setItems }) => {
+const ItemDashboard = ({ items, setItems }) => {
   const handleDescending = () => {
-    console.log(items)
     const sortedItems = items.sort((a, b) => {
-      // console.log(a.item)
-      // return a.quantity.toLowerCase() - b.quantity.toLowerCase()
       if (a.item.toLowerCase() < b.item.toLowerCase()) {
         return -1
       }
@@ -16,7 +13,6 @@ const ItemDashboard = ({ items, setSortedItems, setItems }) => {
       }
       return 0
     })
-    console.log(sortedItems)
     setItems([...sortedItems])
   }
 

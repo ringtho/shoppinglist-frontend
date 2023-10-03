@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 import { loginData } from "../../api";
 import Alert from "../Alert/Alert";
 import './Login.scss'
@@ -9,9 +9,11 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null)
+  const [alert, setAlert] = useState(null)
   const [showAlert, setShowAlert] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const navigate = useNavigate()
+  const location = useLocation()
 
   const submitHandler = async (e) => {
     e.preventDefault();
@@ -31,14 +33,43 @@ const Login = () => {
     }
   }
 
+  useEffect(() => {
+    const alert = location?.state?.alert
+    if (alert) {
+      setAlert(alert)
+      setError(alert)
+      setShowAlert(true)
+    }
+
+    const timer = setTimeout(() => {
+      if (alert || error) {
+        setShowAlert(false)
+        navigate('/')
+      }
+    }, 10000)
+
+    return function () {
+      clearTimeout(timer)
+    }
+    
+  },[])
+
   return (
     <div className="auth_container">
       <form className="shadow-lg" onSubmit={submitHandler}>
         <h2>Shopping List Login</h2>
-        {error && showAlert && (
+        {error && !alert && showAlert && (
           <Alert
-            message={error.data.detail}
+            message={error?.data?.detail}
             variant="danger"
+            setShowAlert={setShowAlert}
+            setError={setError}
+          />
+        )}
+        {alert && showAlert && (
+          <Alert
+            message={error}
+            variant="info"
             setShowAlert={setShowAlert}
             setError={setError}
           />
@@ -74,7 +105,7 @@ const Login = () => {
           className="button btn btn-block py-3"
           disabled={isSubmitting}
         >
-          {isSubmitting? 'LOGGING IN' : 'LOGIN'}
+          {isSubmitting ? 'LOGGING IN' : 'LOGIN'}
         </button>
 
         <Link to="/register" className="float-right mt-3">

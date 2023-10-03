@@ -21,7 +21,7 @@ const Register = () => {
     e.preventDefault();
     try {
       await register(user)
-      navigate('/', { replace:true })
+      navigate('/', { replace:true, state:{ alert: "Login to continue" }})
     } catch (error) {
       setShowAlert(true)
       setError(error.response.status)

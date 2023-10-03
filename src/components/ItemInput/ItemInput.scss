@@ -7,7 +7,6 @@
         background-color: #FFF;
         width: 100%;
         border-radius: 0.5rem;
-        // border: 1px solid red;
     }
 
     input {
@@ -20,6 +19,11 @@
         position: relative;
         font-family: 'Raleway', sans-serif;
         caret-color: #3A7CFD; 
+        font-size: 0.9rem;
+
+        @media screen and (min-width: 1020px) {
+            font-size: 1rem;
+        }
     }
 
     .search-button {
