@@ -10,6 +10,7 @@ import ItemDashboard from '../ItemDashboard/ItemDashboard'
 import { getAllItems } from '../../api'
 import NoItems from '../NoItems/NoItems'
 import Loading from '../Loading/Loading'
+import UserDetails from '../UserDetails/UserDetails'
 
 const Home = () => {
   const [isAddItemActive, setIsAddItemActive] = useState(false)
@@ -23,15 +24,16 @@ const Home = () => {
   const [isLoading, setIsLoading] = useState(true)
   const [filteredItems, setFilteredItems] = useState([])
   const [searchValue, setSearchValue] = useState('')
+  const [isViewUserActive, setIsViewUserActive] = useState(false)
+  const [user, setUser] = useState('')
+  const [userInitials, setUserInitials] = useState('')
 
   useEffect(() => {
-    console.log('refreshing')
     setIsSubmitting(true)
     setIsLoading(true)
     const getItemsList = async () => {
       try {
         const { data } = await getAllItems()
-        console.log(data)
         setItems(data)
         if (filteredItems.length > 0) {
           const updated = filteredItems.map((oldItem) => {
@@ -65,9 +67,21 @@ const Home = () => {
     }
   },[searchValue])
 
+  useEffect(() => {
+    const tokenObject = localStorage.getItem('token')
+    const user = JSON.parse(tokenObject).user
+    setUser(user)
+    const userInitials = user.split(' ')[0][0] + user.split(' ')[1][0]
+    setUserInitials(userInitials.toUpperCase())
+  }, [])
+
   return (
     <div className="main-container">
-      <Navbar />
+      <Navbar 
+        setIsViewUserActive={setIsViewUserActive} 
+        userInitials={userInitials}
+        user={user} 
+      />
       <div className="home__items">
         <button
           onClick={() => setIsAddItemActive(true)}
@@ -76,21 +90,20 @@ const Home = () => {
           <i className="fa-solid fa-plus"></i>Add Item
         </button>
 
-        {(isLoading && items?.length === 0) ? (
-          
+        {isLoading && items?.length === 0 ? (
           <Loading />
-        ) : (!isLoading && items?.length === 0) 
-          ? <NoItems setIsActive={setIsAddItemActive} /> 
-          :(
+        ) : !isLoading && items?.length === 0 ? (
+          <NoItems setIsActive={setIsAddItemActive} />
+        ) : (
           <>
             <ItemInput setItems={setItems} setSearchValue={setSearchValue} />
-            <ItemDashboard 
-              items={items} 
+            <ItemDashboard
+              items={items}
               setSortedItems={setSortedItems}
-              setItems={setItems} 
+              setItems={setItems}
             />
             <Items
-              items={!searchValue ? items : filteredItems }
+              items={!searchValue ? items : filteredItems}
               setIsEditItemActive={setIsEditItemActive}
               setIsDeleteItemActive={setIsDeleteItemActive}
               selectedItem={selectedItem}
@@ -122,6 +135,7 @@ const Home = () => {
           setSelectedItem={setSelectedItem}
         />
       )}
+      {isViewUserActive && <UserDetails user={user} />}
     </div>
   )
 }

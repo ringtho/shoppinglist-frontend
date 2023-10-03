@@ -14,15 +14,13 @@ const Register = () => {
   const [error, setError] = useState(null)
   const [showAlert, setShowAlert] = useState(false)
   const navigate = useNavigate()
-
   const { first_name, last_name, email, password } = user;
 
   const submitHandler = async (e) => {
     setIsSubmitting(true)
     e.preventDefault();
     try {
-      const res = await register(user)
-      console.log(res)
+      await register(user)
       navigate('/', { replace:true })
     } catch (error) {
       setShowAlert(true)
@@ -36,7 +34,6 @@ const Register = () => {
     } finally {
       setIsSubmitting(false)
     }
-    
   };
 
   const onChange = (e) => {
@@ -64,6 +61,7 @@ const Register = () => {
             value={first_name}
             onChange={onChange}
             required
+            placeholder="eg John"
           />
         </div>
 
@@ -77,6 +75,7 @@ const Register = () => {
             value={last_name}
             onChange={onChange}
             required
+            placeholder="eg Doe"
           />
         </div>
 
@@ -90,6 +89,7 @@ const Register = () => {
             value={email}
             onChange={onChange}
             required
+            placeholder="eg John@gmail.com"
           />
         </div>
 
@@ -103,6 +103,7 @@ const Register = () => {
             value={password}
             onChange={onChange}
             required
+            placeholder="*******"
           />
         </div>
         <button

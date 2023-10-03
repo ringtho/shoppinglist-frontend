@@ -1,8 +1,6 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { useNavigate } from 'react-router-dom'
-import { login } from "../../reducers/authSlice";
 import { loginData } from "../../api";
 import Alert from "../Alert/Alert";
 import './Login.scss'
@@ -13,7 +11,6 @@ const Login = () => {
   const [error, setError] = useState(null)
   const [showAlert, setShowAlert] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
-  // const dispatch = useDispatch(); 
   const navigate = useNavigate()
 
   const submitHandler = async (e) => {
@@ -21,10 +18,8 @@ const Login = () => {
     setIsSubmitting(true)
     try {
       const res = await loginData({email, password});
-      const token = res.data.token
-      console.log(token)
-      localStorage.setItem('token', token)
-      // dispatch(login(token))
+      const token = res.data
+      localStorage.setItem('token', JSON.stringify(token))
       navigate('/home')
     } catch (error) {
       setShowAlert(true)
