@@ -1,37 +1,58 @@
 # Shopping List
 
-An application used to create and modify a shopping list built using React, React Router, Javascript, and CSS.
+![Demo](./public/add.jpeg)
 
-## Project Status
+This is a simple shopping list application created using React and hosted on Netlify. You can access the live application here: [Shopping List](https://shopping-todo.netlify.app/)
 
-This project is currently in development. Users can create an account, log in, create a shopping list item, modify a shopping list item, and delete a shopping list item.
+## Features
 
-## Installation
+- Create a shopping list by adding items.
+- Mark items as completed and modify other details.
+- Delete items from the list.
+- Responsive design that works well on both desktop and mobile devices.
 
-Clone this repository. You need node and npm installed on your machine.
+## Usage
 
-Installation:
-```bash
-npm install
-```
+1. Visit the live application at [Shopping List](https://shopping-todo.netlify.app/).
+2. To add an item to your shopping list, enter the item name in the input field and press "Add Item."
+3. To mark an item as completed, click the checkbox next to the item.
+4. To delete an item, click the "Delete" button next to the item.
+5. Your shopping list will be saved, so you can return to it later.
 
-To start the server:
-```bash
-npm start
-```
+## Development
 
-To access the views:
-```bash
-localhost:3000/
-```
+If you want to run this application locally or modify it, you can follow these steps:
+
+1. Clone this repository:
+
+   ```bash
+   git clone https://github.com/ringtho/shoppinglist-frontend
+   cd shoppinglist-frontend
+2. Install the dependencies:
+    ```bash
+   npm install
+3. Start the development server:
+    ```bash
+    npm start
+Open your web browser and navigate to http://localhost:3000 to view the application.
+
+## Technologies Used
+- React.js
+- React Hooks
+- React Router
+- SCSS for styling
 
 
-## Contributing
-
-Pull requests are welcome. For major changes, please open an issue first
-to discuss what you would like to change.
-
+## Deployment
+The application is hosted on Netlify. Deployment is set up to be automatic whenever changes are pushed to the main branch.
 
 ## License
+This project is licensed under the MIT License.
 
-[MIT](https://choosealicense.com/licenses/mit/)
+## Acknowledgments
+- Special thanks to the React community for providing a powerful and flexible library for building user interfaces.
+- Icons from FontAwesome.
+
+
+
+
