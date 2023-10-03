@@ -14,8 +14,6 @@ const EditItem = ({ setIsActive, selectedItem, setSelectedItem }) => {
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
 
-  console.log(updatedItem)
-
   const handleChange = (e) => {
     const itemName = e.target.name
     const value = e.target.value

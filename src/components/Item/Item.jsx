@@ -19,9 +19,6 @@ const Item = (props) => {
   const [isComplete, setIsComplete] = useState(is_completed)
   const [isActive, setIsActive] = useState(false)
 
-  // console.log(completed)
-  // console.log(isComplete)
-
   const handleEditClick = () => {
     setSelectedItem({ id, item, quantity, notes, is_completed })
     setIsEditItemActive(true)
@@ -32,25 +29,6 @@ const Item = (props) => {
     setIsDeleteItemActive(true)
   }
 
-  // useEffect(() => {
-  //   const editComplete = async () => {
-  //     try {
-  //       const res = await editItem({
-  //         id,
-  //         item,
-  //         quantity,
-  //         notes,
-  //         is_completed: isComplete,
-  //       })
-  //       setIsComplete(!isComplete)
-  //       setSelectedItem(null)
-  //     } catch (error) {
-  //       console.log(error)
-  //     }
-  //   }
-  //   editComplete()
-  // }, [isComplete])
-
   const handleIsComplete = async () => {
     try {
       const res = await editItem({
@@ -60,7 +38,6 @@ const Item = (props) => {
         notes,
         is_completed: !isComplete,
       })
-      console.log(res)
       setIsComplete(!isComplete)
       setItems(prev => {
         const updated = prev.map(item => {
@@ -115,17 +92,6 @@ const Item = (props) => {
       </div>
     </li>
   )
-}
-
-Item.propTypes = {
-  id: PropTypes.number,
-  title: PropTypes.array,
-  description: PropTypes.string,
-  quantity: PropTypes.number,
-  is_completed: PropTypes.bool,
-  setIsEditItemActive: PropTypes.func,
-  setIsDeleteItemActive: PropTypes.func,
-  setItemId: PropTypes.func
 }
 
 export default Item

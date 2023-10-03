@@ -1,9 +1,12 @@
 import React from 'react'
 import './Alert.scss'
+import { useNavigate } from 'react-router-dom'
 
 const Alert = ({ message, variant, setShowAlert }) => {
+  const navigate = useNavigate()
   const handleClick = () => {
     setShowAlert(false)
+    navigate('/')
   }
 
   return (

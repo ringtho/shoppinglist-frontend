@@ -8,6 +8,7 @@ const ItemInput = ({ setSearchValue }) => {
   const handleSubmit = async (e) => {
     e.preventDefault()
     setSearchValue(item)
+    setItem('')
   }
 
   return (
@@ -23,10 +24,6 @@ const ItemInput = ({ setSearchValue }) => {
         </form>
     </section>
   )
-}
-
-ItemInput.propTypes = {
-  setList: PropTypes.func
 }
 
 export default ItemInput

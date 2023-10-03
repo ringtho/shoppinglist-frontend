@@ -48,7 +48,7 @@ const Home = () => {
         }
 
       
-        setIsLoading(false)
+        setIsLoading(false)// false
       } catch (error) {
         console.log(error)
       } finally {
@@ -62,7 +62,6 @@ const Home = () => {
     if (searchValue) {
       const filtered = items.filter(
         (item) => (item.item.toLowerCase().includes(searchValue)))
-      console.log(filtered)
       setFilteredItems(filtered)
     }
   },[searchValue])
@@ -77,12 +76,16 @@ const Home = () => {
 
   return (
     <div className="main-container">
-      <Navbar 
-        setIsViewUserActive={setIsViewUserActive} 
+      <Navbar
+        setIsViewUserActive={setIsViewUserActive}
         userInitials={userInitials}
-        user={user} 
+        user={user}
       />
       <div className="home__items">
+        <p className="greeting">
+          Hello, <span>{user.split(' ')[0]}</span>
+          👋🏼
+        </p>
         <button
           onClick={() => setIsAddItemActive(true)}
           className="add__item-button"
@@ -98,7 +101,7 @@ const Home = () => {
           <>
             <ItemInput setItems={setItems} setSearchValue={setSearchValue} />
             <ItemDashboard
-              items={items}
+              items={!searchValue ? items : filteredItems}
               setSortedItems={setSortedItems}
               setItems={setItems}
             />
