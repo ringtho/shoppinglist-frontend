@@ -1,10 +1,9 @@
 import React from 'react'
 import './UserDetails.scss'
 import { useNavigate } from 'react-router-dom'
-import { logout } from '../../reducers/authSlice'
-import { useDispatch } from 'react-redux'
 
 const UserDetails = ({ user }) => {
+  const navigate = useNavigate()
   const logoutApp = () => {
     localStorage.removeItem('token')
     navigate('/')
