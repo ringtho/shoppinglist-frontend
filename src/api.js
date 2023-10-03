@@ -2,8 +2,10 @@ import axios from 'axios'
 
 const API_BASE_URL = process.env.REACT_APP_NODE_API_URL
 
+/* Creates a config file for the routes */
 const getHeaders = () => {
-  const jwt = localStorage.getItem('token')
+  const tokenObject = localStorage.getItem('token')
+  const jwt = JSON.parse(tokenObject).token
   const config = {
     headers: {
       'Content-Type': 'application/json',
@@ -13,12 +15,8 @@ const getHeaders = () => {
   return config
 }
 
-/**
- * Handles the API call for user login.
- * @param {string} email - The user's email.
- * @param {string} password - The user's password.
- * @returns {Promise} A Promise that resolves with the login response data.
- */
+
+/* Handles the API call for user login */
 export const loginData = async ({ email, password }) => {
   const config = {
     headers: {
@@ -33,14 +31,7 @@ export const loginData = async ({ email, password }) => {
   return data
 }
 
-/**
- * Handles the API call for user registration.
- * @param {string} first_name - The user's first_name.
- * @param {string} last_name - The user's last_name.
- * @param {string} email - The user's email.
- * @param {string} password - The user's password.
- * @returns {Promise} A Promise that resolves with the register user response data.
- */
+/* Handles the API call for user registration. */
 export const register = async (user) => {
   const config = {
     headers: {
@@ -51,14 +42,7 @@ export const register = async (user) => {
   return data
 }
 
-/**
- * Handles the API call for adding an item.
- * @param {string} item - The item's title.
- * @param {number} quantity - The item's quantity.
- * @param {string} notes - The item's description.
- * @param {boolean} completed - The item's status.
- * @returns {Promise} A Promise that resolves with the added item response data.
- */
+/* Handles the API call for adding an item. */
 export const addItem = async (item) => {
     const config = getHeaders()
     const { data } = await axios.post(`${API_BASE_URL}/orders/`, item, config)
