@@ -1,22 +1,21 @@
 import React from 'react'
-import './Items.scss'
 import Item from '../Item/Item'
 import PropTypes from 'prop-types'
+import './Items.scss'
 
-
-const Items = ({ 
-    items, 
-    setIsEditItemActive, 
-    selectedItem, 
-    setIsDeleteItemActive ,
+const Items = (props) => {
+  const {
+    items,
+    setIsEditItemActive,
+    selectedItem,
+    setIsDeleteItemActive,
     setSelectedItem,
     setItems
-  }) => {
-
+  } = props
   const itemsList = items?.map((item) => (
     <Item
       key={item.id}
-      {...item}
+      item={item}
       selectedItem={selectedItem}
       setItems={setItems}
       setIsEditItemActive={setIsEditItemActive}
@@ -35,7 +34,10 @@ const Items = ({
 Items.propTypes = {
   setIsEditItemActive: PropTypes.func,
   setIsDeleteItemActive: PropTypes.func,
-  setItemId: PropTypes.func
+  setSelectedItem: PropTypes.func,
+  setItems: PropTypes.func,
+  selectedItem: PropTypes.object,
+  items: PropTypes.array
 }
 
 export default Items

@@ -50,7 +50,8 @@ const ItemDashboard = ({ items, setItems }) => {
 }
 
 ItemDashboard.propTypes = {
-  items: PropTypes.array
+  items: PropTypes.array,
+  setItems: PropTypes.func
 }
 
 export default ItemDashboard

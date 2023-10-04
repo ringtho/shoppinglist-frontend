@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import axios from 'axios'
 
 const API_BASE_URL = process.env.REACT_APP_NODE_API_URL
@@ -9,19 +10,18 @@ const getHeaders = () => {
   const config = {
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': `${jwt}`,
-    },
+      Authorization: `${jwt}`
+    }
   }
   return config
 }
-
 
 /* Handles the API call for user login */
 export const loginData = async ({ email, password }) => {
   const config = {
     headers: {
-      'Content-Type': 'application/json',
-    },
+      'Content-Type': 'application/json'
+    }
   }
   const data = await axios.post(
     `${API_BASE_URL}/login/`,
@@ -44,15 +44,15 @@ export const register = async (user) => {
 
 /* Handles the API call for adding an item. */
 export const addItem = async (item) => {
-    const config = getHeaders()
-    const { data } = await axios.post(`${API_BASE_URL}/orders/`, item, config)
-    return data
+  const config = getHeaders()
+  const { data } = await axios.post(`${API_BASE_URL}/orders/`, item, config)
+  return data
 }
 
 /* Handles Api call for getting all items */
 export const getAllItems = async () => {
   const config = getHeaders()
-  const data = await axios.get(`${API_BASE_URL}/orders`,config)
+  const data = await axios.get(`${API_BASE_URL}/orders`, config)
   return data
 }
 
@@ -67,19 +67,6 @@ export const editItem = async (item) => {
 export const deleteItem = async (id) => {
   const config = getHeaders()
   const { data } = await axios.delete(
-    `${API_BASE_URL}/orders/${id}`,config)
-  return data
-}
-
-/* Handles Api call for user logout */
-export const logout = async (id) => {
-  // const jwt = localStorage.getItem('shoppingToken')
-  const config = {
-    headers: {
-      'Content-Type': 'application/json',
-      AUTHORIZATION: `${jwt}`,
-    },
-  }
-  const { data } = await axios.delete(`${API_BASE_URL}/orders/${id}`, config)
+    `${API_BASE_URL}/orders/${id}`, config)
   return data
 }

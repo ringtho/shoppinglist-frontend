@@ -1,13 +1,12 @@
-import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import { useNavigate, useLocation } from 'react-router-dom'
-import { loginData } from "../../api";
-import Alert from "../Alert/Alert";
+import React, { useEffect, useState } from 'react'
+import { useNavigate, useLocation, Link } from 'react-router-dom'
+import { loginData } from '../../api'
+import Alert from '../Alert/Alert'
 import './Login.scss'
 
 const Login = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
   const [error, setError] = useState(null)
   const [alert, setAlert] = useState(null)
   const [showAlert, setShowAlert] = useState(false)
@@ -16,12 +15,12 @@ const Login = () => {
   const location = useLocation()
 
   const submitHandler = async (e) => {
-    e.preventDefault();
+    e.preventDefault()
     setIsSubmitting(true)
     try {
-      const res = await loginData({email, password});
+      const res = await loginData({ email, password })
       const token = res.data
-      localStorage.setItem('token', JSON.stringify(token))
+      window.localStorage.setItem('token', JSON.stringify(token))
       navigate('/home')
     } catch (error) {
       setShowAlert(true)
@@ -51,8 +50,7 @@ const Login = () => {
     return function () {
       clearTimeout(timer)
     }
-    
-  },[])
+  }, [])
 
   return (
     <div className="auth_container">

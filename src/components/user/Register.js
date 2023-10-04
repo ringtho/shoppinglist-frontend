@@ -1,27 +1,26 @@
-import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { register } from "../../api";
-import Alert from "../Alert/Alert";
+import React, { useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
+import { register } from '../../api'
+import Alert from '../Alert/Alert'
 
 const Register = () => {
   const [user, setUser] = useState({
     first_name: '',
     last_name: '',
     email: '',
-    password: '',
+    password: ''
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [error, setError] = useState(null)
   const [showAlert, setShowAlert] = useState(false)
   const navigate = useNavigate()
-  const { first_name, last_name, email, password } = user;
 
   const submitHandler = async (e) => {
     setIsSubmitting(true)
-    e.preventDefault();
+    e.preventDefault()
     try {
       await register(user)
-      navigate('/', { replace:true, state:{ alert: "Login to continue" }})
+      navigate('/', { replace: true, state: { alert: 'Login to continue' } })
     } catch (error) {
       setShowAlert(true)
       setError(error.response.status)
@@ -29,16 +28,16 @@ const Register = () => {
         first_name: '',
         last_name: '',
         email: '',
-        password: '',
+        password: ''
       })
     } finally {
       setIsSubmitting(false)
     }
-  };
+  }
 
   const onChange = (e) => {
-    setUser({ ...user, [e.target.name]: e.target.value });
-  };
+    setUser({ ...user, [e.target.name]: e.target.value })
+  }
 
   return (
     <div className="auth_container">
@@ -58,7 +57,7 @@ const Register = () => {
             id="first_name_field"
             className="form-control"
             name="first_name"
-            value={first_name}
+            value={user.first_name}
             onChange={onChange}
             required
             placeholder="eg John"
@@ -72,7 +71,7 @@ const Register = () => {
             id="last_name_field"
             className="form-control"
             name="last_name"
-            value={last_name}
+            value={user.last_name}
             onChange={onChange}
             required
             placeholder="eg Doe"
@@ -86,7 +85,7 @@ const Register = () => {
             id="email_field"
             className="form-control"
             name="email"
-            value={email}
+            value={user.email}
             onChange={onChange}
             required
             placeholder="eg John@gmail.com"
@@ -100,7 +99,7 @@ const Register = () => {
             id="password_field"
             className="form-control"
             name="password"
-            value={password}
+            value={user.password}
             onChange={onChange}
             required
             placeholder="*******"
@@ -120,6 +119,6 @@ const Register = () => {
       </form>
     </div>
   )
-};
+}
 
-export default Register;
+export default Register

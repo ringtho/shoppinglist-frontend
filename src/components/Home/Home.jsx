@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react'
 import Navbar from '../Navbar/Navbar'
 import ItemInput from '../../components/ItemInput/ItemInput'
 import Items from '../Items/Items'
-import './Home.scss'
 import AddItem from '../AddItem/AddItem'
 import EditItem from '../EditItem/EditItem'
 import DeleteItem from '../DeleteItem/DeleteItem'
@@ -11,16 +10,14 @@ import { getAllItems } from '../../api'
 import NoItems from '../NoItems/NoItems'
 import Loading from '../Loading/Loading'
 import UserDetails from '../UserDetails/UserDetails'
+import './Home.scss'
 
 const Home = () => {
   const [isAddItemActive, setIsAddItemActive] = useState(false)
   const [isEditItemActive, setIsEditItemActive] = useState(false)
   const [isDeleteItemActive, setIsDeleteItemActive] = useState(false)
-  const [itemId, setItemId] = useState([])
   const [selectedItem, setSelectedItem] = useState(null)
-  const [isSubmitting, setIsSubmitting] = useState(false)
   const [items, setItems] = useState([])
-  const [sortedItems, setSortedItems] = useState([])
   const [isLoading, setIsLoading] = useState(true)
   const [filteredItems, setFilteredItems] = useState([])
   const [searchValue, setSearchValue] = useState('')
@@ -29,13 +26,14 @@ const Home = () => {
   const [userInitials, setUserInitials] = useState('')
 
   useEffect(() => {
-    setIsSubmitting(true)
+    // setIsSubmitting(true)
     setIsLoading(true)
     const getItemsList = async () => {
       try {
         const { data } = await getAllItems()
         setItems(data)
         if (filteredItems.length > 0) {
+          // eslint-disable-next-line array-callback-return
           const updated = filteredItems.map((oldItem) => {
             const newItem = data.find(
               (updatedItem) => updatedItem.id === oldItem.id
@@ -46,13 +44,9 @@ const Home = () => {
           })
           setFilteredItems(updated)
         }
-
-      
-        setIsLoading(false)// false
+        setIsLoading(false)
       } catch (error) {
         console.log(error)
-      } finally {
-        setIsSubmitting(false)
       }
     }
     getItemsList()
@@ -64,10 +58,10 @@ const Home = () => {
         (item) => (item.item.toLowerCase().includes(searchValue)))
       setFilteredItems(filtered)
     }
-  },[searchValue])
+  }, [searchValue])
 
   useEffect(() => {
-    const tokenObject = localStorage.getItem('token')
+    const tokenObject = window.localStorage.getItem('token')
     const user = JSON.parse(tokenObject).user
     setUser(user)
     const userInitials = user.split(' ')[0][0] + user.split(' ')[1][0]
@@ -93,16 +87,15 @@ const Home = () => {
           <i className="fa-solid fa-plus"></i>Add Item
         </button>
 
-        {isLoading && items?.length === 0 ? (
-          <Loading />
-        ) : !isLoading && items?.length === 0 ? (
-          <NoItems setIsActive={setIsAddItemActive} />
-        ) : (
+        {isLoading && items?.length === 0
+          ? <Loading />
+          : (!isLoading && items?.length === 0)
+              ? (<NoItems setIsActive={setIsAddItemActive} />)
+              : (
           <>
-            <ItemInput setItems={setItems} setSearchValue={setSearchValue} />
+            <ItemInput setSearchValue={setSearchValue} />
             <ItemDashboard
               items={!searchValue ? items : filteredItems}
-              setSortedItems={setSortedItems}
               setItems={setItems}
             />
             <Items
@@ -114,18 +107,16 @@ const Home = () => {
               setItems={setItems}
             />
           </>
-        )}
+                )}
       </div>
       {isAddItemActive && (
         <AddItem
           setSelectedItem={setSelectedItem}
           setIsActive={setIsAddItemActive}
-          setIsSubmitting={setIsSubmitting}
         />
       )}
       {isEditItemActive && (
         <EditItem
-          itemId={itemId}
           setIsActive={setIsEditItemActive}
           selectedItem={selectedItem}
           setSelectedItem={setSelectedItem}
@@ -134,7 +125,7 @@ const Home = () => {
       {isDeleteItemActive && (
         <DeleteItem
           setIsActive={setIsDeleteItemActive}
-          {...selectedItem}
+          id={selectedItem.id}
           setSelectedItem={setSelectedItem}
         />
       )}

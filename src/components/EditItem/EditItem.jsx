@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import React, { useState } from 'react'
 import './EditItem.scss'
 import PropTypes from 'prop-types'
@@ -82,8 +83,8 @@ const EditItem = ({ setIsActive, selectedItem, setSelectedItem }) => {
           />
           <label htmlFor="completed">Completed</label>
         </div>
-        <button 
-          onClick={() => setIsActive(false)} 
+        <button
+          onClick={() => setIsActive(false)}
           className='button-cancel'
         >Cancel</button>
         <button type="submit">
@@ -92,6 +93,12 @@ const EditItem = ({ setIsActive, selectedItem, setSelectedItem }) => {
       </form>
     </div>
   )
+}
+
+EditItem.propTypes = {
+  setIsActive: PropTypes.func,
+  selectedItem: PropTypes.object,
+  setSelectedItem: PropTypes.func
 }
 
 export default EditItem
