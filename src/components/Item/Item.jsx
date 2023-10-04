@@ -1,20 +1,18 @@
-import React, { useState, useEffect } from 'react'
+/* eslint-disable camelcase */
+import React, { useState } from 'react'
 import './Item.scss'
 import PropTypes from 'prop-types'
 import { editItem } from '../../api'
 
 const Item = (props) => {
   const {
-    id, 
-    item, 
-    quantity, 
-    notes, 
-    is_completed, 
+    item: itemObject,
     setIsEditItemActive,
     setIsDeleteItemActive,
     setSelectedItem,
     setItems
   } = props
+  const { id, item, quantity, notes, is_completed } = itemObject
 
   const [isComplete, setIsComplete] = useState(is_completed)
   const [isActive, setIsActive] = useState(false)
@@ -36,7 +34,7 @@ const Item = (props) => {
         item,
         quantity,
         notes,
-        is_completed: !isComplete,
+        is_completed: !isComplete
       })
       setIsComplete(!isComplete)
       setItems(prev => {
@@ -92,6 +90,14 @@ const Item = (props) => {
       </div>
     </li>
   )
+}
+
+Item.propTypes = {
+  item: PropTypes.object,
+  setIsEditItemActive: PropTypes.func,
+  setIsDeleteItemActive: PropTypes.func,
+  setSelectedItem: PropTypes.func,
+  setItems: PropTypes.func
 }
 
 export default Item

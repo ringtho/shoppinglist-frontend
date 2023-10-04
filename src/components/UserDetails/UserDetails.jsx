@@ -1,11 +1,12 @@
 import React from 'react'
 import './UserDetails.scss'
 import { useNavigate } from 'react-router-dom'
+import PropTypes from 'prop-types'
 
 const UserDetails = ({ user }) => {
   const navigate = useNavigate()
   const logoutApp = () => {
-    localStorage.removeItem('token')
+    window.localStorage.removeItem('token')
     navigate('/')
   }
 
@@ -28,6 +29,10 @@ const UserDetails = ({ user }) => {
       </div>
     </div>
   )
+}
+
+UserDetails.propTypes = {
+  user: PropTypes.string
 }
 
 export default UserDetails

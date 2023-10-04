@@ -1,6 +1,7 @@
 import React from 'react'
-import './Alert.scss'
 import { useNavigate } from 'react-router-dom'
+import PropTypes from 'prop-types'
+import './Alert.scss'
 
 const Alert = ({ message, variant, setShowAlert }) => {
   const navigate = useNavigate()
@@ -10,13 +11,19 @@ const Alert = ({ message, variant, setShowAlert }) => {
   }
 
   return (
-    <div className={`alert ${variant? variant : ''}`}>
+    <div className={`alert ${variant || ''}`}>
       <p>{message}</p>
       <div onClick={handleClick}>
         <i className="fa-solid fa-xmark"></i>
       </div>
     </div>
   )
+}
+
+Alert.propTypes = {
+  message: PropTypes.string,
+  variant: PropTypes.string,
+  setShowAlert: PropTypes.func
 }
 
 export default Alert

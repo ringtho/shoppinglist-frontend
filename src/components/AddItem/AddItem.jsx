@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
-import './AddItem.scss'
 import { addItem } from '../../api'
+import PropTypes from 'prop-types'
+import './AddItem.scss'
 
 const AddItem = ({ setIsActive, setSelectedItem }) => {
   const [item, setItem] = useState({
@@ -16,7 +17,7 @@ const AddItem = ({ setIsActive, setSelectedItem }) => {
     const id = e.target.id
     setItem((prev) => ({
       ...prev,
-      [e.target.name]: id === 'quantity' ? Number(value) : value,
+      [e.target.name]: id === 'quantity' ? Number(value) : value
     }))
   }
 
@@ -78,12 +79,17 @@ const AddItem = ({ setIsActive, setSelectedItem }) => {
         <button onClick={() => setIsActive(false)} className="button-cancel">
           Cancel
         </button>
-        <button type="submit" disabled={isSubmitting? true : false }>
-          {isSubmitting ? 'Adding Item' :'Add Item'}
+        <button type="submit" disabled={ isSubmitting }>
+          {isSubmitting ? 'Adding Item...' : 'Add Item'}
         </button>
       </form>
     </div>
   )
+}
+
+AddItem.propTypes = {
+  setIsActive: PropTypes.func,
+  setSelectedItem: PropTypes.func
 }
 
 export default AddItem
